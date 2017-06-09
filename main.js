@@ -3,17 +3,12 @@
 Vue.component('qfp-main', {
   template: `
     <div class="columns">
-      <div class="column is-3" v-show="isSideVisible">
-        <aside class="menu section">          
+      <div class="column is-2" v-show="isSideVisible">
+        <aside class="menu section">
           <qfp-sideheader v-for="(header,idx) in headers" :key="idx" :title="header.name" v-bind:position="idx" v-on:menuclear='menuClear()'></qfp-sideheader>
         </aside>
       </div>
-      <div class="column">
-        <section class="section">
-          <h1 class="title">Heineken</h1>
-          <h2 class="subtitle">Order to Cash / Business Processes</h2>
-        </section>
-      </div>
+        <qfp-content></qfp-content>
     </div>
   `,
   data() {
@@ -118,11 +113,10 @@ Vue.component('qfp-sideheader', {
   }
 })
 
-
 Vue.component('qfp-sidemenu', {
   template: `
   <li>
-    <a :class="highlight" v-on:click="menuChanged()">
+    <a :class="{'is-active': isActive}" @click="menuChanged()">
       <span class="icon">
         <i :class="'fa fa-' + icon"></i>
       </span> {{name}}
@@ -139,9 +133,6 @@ Vue.component('qfp-sidemenu', {
     menuChanged() {
       this.$emit('menuclear', this.index);
       this.isActive = !this.isActive;
-    },
-    menuDown() {
-      console.log('key down')
     }
   },
   computed: {
@@ -150,6 +141,41 @@ Vue.component('qfp-sidemenu', {
     }
   }
 })
+
+Vue.component('qfp-content', {
+  template: `
+  <div class="column is-8">
+    <section class="section">
+      <qfp-content-title></qfp-content-title>
+      <qfp-content-body></qfp-content-body>
+    </section>
+  </div>
+  `
+})
+
+Vue.component('qfp-content-title', {
+  template: `
+  <div>
+    <h1 class="title">Heineken</h1>
+    <h2 class="subtitle">Order to Cash / Business Processes</h2>
+    <hr>
+  </div>
+  `
+})
+
+Vue.component('qfp-content-body', {
+  template: `
+  <div>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Ut nihil quis ex culpa sit pariatur recusandae excepturi
+    mollitia maiores omnis iste, aut quasi autem,
+    in aliquid deserunt quam quos saepe.
+    </p>
+  </div>
+  `
+})
+
 
 new Vue({
   el: '#root'
