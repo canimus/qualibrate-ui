@@ -4,8 +4,8 @@ Vue.component('qfp-main', {
   template: `
     <div class="columns">
       <div class="column is-3" v-show="isSideVisible">
-        <aside class="menu section">
-          <qfp-sideheader v-for="(header,idx) in headers" :key="idx" :title="header.name" v-bind:position="idx+1" v-on:menuclear='menuClear()'></qfp-sideheader>
+        <aside class="menu section">          
+          <qfp-sideheader v-for="(header,idx) in headers" :key="idx" :title="header.name" v-bind:position="idx" v-on:menuclear='menuClear()'></qfp-sideheader>
         </aside>
       </div>
       <div class="column">
@@ -83,12 +83,14 @@ Vue.component('qfp-sideheader', {
           {item: 'User Actions', icon: 'hand-o-up'},
           {item: 'User Functions', icon: 'superscript'},
           {item: 'Data Sets', icon: 'database'},
-          {item: 'Scenarios', icon: 'gears'}
+          {item: 'Scenarios', icon: 'gears'},
+          {item: 'Cycles', icon: 'refresh'}
         ],
         [
-          {item: 'Tasks', icon: 'check-square-o'},
+          {item: 'Projects', icon: 'briefcase'},
+          {item: 'Work Items', icon: 'check-square-o'},
           {item: 'Schedules', icon: 'calendar-plus-o'},
-          {item: 'Reports', icon: 'bar-chart-o'},
+          {item: 'Analytics', icon: 'bar-chart-o'},
           {item: 'Defects', icon: 'bug'}
         ],
         [
@@ -98,6 +100,7 @@ Vue.component('qfp-sideheader', {
         [
           {item: 'Adapters', icon: 'laptop'},
           {item: 'Licenses', icon: 'unlock-alt'},
+          {item: 'Archive', icon: 'archive'},
           {item: 'Status', icon: 'heartbeat'}
         ]
       ]
@@ -105,7 +108,7 @@ Vue.component('qfp-sideheader', {
   },
   computed: {
     menuValues() {
-      return this.menus[this.position-1];
+      return this.menus[this.position];
     }
   },
   methods: {
@@ -119,7 +122,7 @@ Vue.component('qfp-sideheader', {
 Vue.component('qfp-sidemenu', {
   template: `
   <li>
-    <a :class="isActive ? 'is-active' : ''" v-on:click="menuChanged()" v-on:keyup.down='menuChanged'>
+    <a :class="highlight" v-on:click="menuChanged()">
       <span class="icon">
         <i :class="'fa fa-' + icon"></i>
       </span> {{name}}
@@ -136,6 +139,14 @@ Vue.component('qfp-sidemenu', {
     menuChanged() {
       this.$emit('menuclear', this.index);
       this.isActive = !this.isActive;
+    },
+    menuDown() {
+      console.log('key down')
+    }
+  },
+  computed: {
+    highlight() {
+      return this.isActive ? 'is-active' : ''
     }
   }
 })
