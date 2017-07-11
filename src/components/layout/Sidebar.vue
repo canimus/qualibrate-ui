@@ -1,6 +1,6 @@
 <template>
     <aside class="menu section app-sidebar" :class="{ slideInLeft: !sidebarOpened }">
-        <ul class="menu">
+        <ul class="menu-list">
             <qfp-submenu v-for="submenu in menus" :key="submenu.name" :submenu="submenu"></qfp-submenu>
         </ul>
     </aside>
@@ -108,5 +108,9 @@
             transition: margin-left 0.7s;
         }
 
+    }
+
+    .menu-list i.fa {
+        font-size: 14px;
     }
 </style>
