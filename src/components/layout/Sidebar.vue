@@ -1,11 +1,14 @@
 <template>
-    <aside class="menu section">
-        <qfp-submenu v-for="submenu in menus" :key="submenu.name" :submenu="submenu"></qfp-submenu>
+    <aside class="menu section app-sidebar" :class="{ slideInLeft: !sidebarOpened }">
+        <ul class="menu">
+            <qfp-submenu v-for="submenu in menus" :key="submenu.name" :submenu="submenu"></qfp-submenu>
+        </ul>
     </aside>
 </template>
 
 <script>
 
+  import { mapGetters } from 'vuex'
   import Submenu from './Submenu.vue'
 
   export default {
@@ -13,6 +16,11 @@
     components: {
       'qfp-submenu': Submenu
     },
+
+    computed: mapGetters({
+      sidebarOpened: 'sidebarOpened'
+    }),
+
     data () {
       return {
 
@@ -69,3 +77,36 @@
     }
   }
 </script>
+
+<style lang="scss">
+    @import '~bulma/sass/utilities/variables';
+    @import '~bulma/sass/utilities/mixins';
+
+    .app-sidebar {
+        position: fixed;
+        top: 50px;
+        left: 0;
+        bottom: 0;
+        padding: 20px 0 50px;
+        width: 250px;
+        min-width: 45px;
+        max-height: 100vh;
+        height: calc(100% - 50px);
+        z-index: 1024 -1;
+        background: #FFF;
+        box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: margin-left 0.7s;
+
+        @include mobile() {
+            transform: translate3d(-180px, 0, 0);
+        }
+
+        &.slideInLeft {
+            margin-left: -250px;
+            transition: margin-left 0.7s;
+        }
+
+    }
+</style>

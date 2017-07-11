@@ -15,7 +15,10 @@
   },
   "dependencies": {
     "vue": "^2.3.3",
-    "vue-router": "^2.3.1"
+    "vue-bulma-expanding": "0.0.1",
+    "vue-router": "^2.3.1",
+    "vuex": "^2.3.1",
+    "vuex-router-sync": "^4.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
