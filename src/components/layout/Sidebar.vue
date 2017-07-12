@@ -37,8 +37,8 @@
           {
             name: 'Testing',
             items: [
-              {path: '/flows', title: 'Flows', icon: 'fa-trello'},
-              {path: '/tasks', title: 'Tasks', icon: 'fa-tasks'},
+              {path: '/flow', title: 'Flows', icon: 'fa-trello'},
+              {path: '/task', title: 'Tasks', icon: 'fa-tasks'},
               {path: '/user-actions', title: 'User Actions', icon: 'fa-hand-o-up'},
               {path: '/user-functions', title: 'User Functions', icon: 'fa-superscript'},
               {path: '/data-sets', title: 'Data Sets', icon: 'fa-database'},
