@@ -42,6 +42,13 @@
         margin-left: 252px;
         transform: translate3d(0, 0, 0);
         transition: margin-left 0.7s;
+        display: block;
+        position: absolute;
+        height: auto;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
 
         @include mobile() {
             margin-left: 0;
@@ -54,4 +61,7 @@
 
     }
 
+    section.section {
+        padding: 1.5rem;
+    }
 </style>

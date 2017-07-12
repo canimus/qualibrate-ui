@@ -10,22 +10,27 @@ export default new Router({
     {
       path: '/',
       name: 'Dashboard',
-      component: require('@/components/Dashboard.vue')
+      component: require('@/components/pages/Dashboard.vue')
     },
     {
       path: '/processes',
       name: 'Processes',
-      component: require('@/components/Processes.vue')
+      component: require('@/components/pages/Processes.vue')
     },
     {
       path: '/roles',
       name: 'Roles',
-      component: require('@/components/Roles.vue')
+      component: require('@/components/pages/Roles.vue')
     },
     {
       path: '/tags',
       name: 'Tags',
-      component: require('@/components/Tags.vue')
+      component: require('@/components/pages/Tags.vue')
+    },
+    {
+      path: '/flow',
+      name: 'Flow',
+      component: require('@/components/pages/Flow.vue')
     }
   ]
 })
