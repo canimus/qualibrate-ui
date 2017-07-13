@@ -59,12 +59,14 @@
 
   import {Tabs, TabPane} from 'vue-bulma-tabs'
   import Task from './Flow/Task.vue'
+  import Draggable from 'vuedraggable'
 
   export default {
     name: 'main',
     components: {
       Tabs,
       TabPane,
+      Draggable,
       'qfp-task': Task
     },
 
@@ -91,12 +93,6 @@
           },
           {
             title: 'SAP Logon'
-          },
-          {
-            title: 'Create Quotation'
-          },
-          {
-            title: 'Logoff'
           }
         ]
       }
@@ -126,13 +122,13 @@
 
     .flow .vue-bulma-tabs {
 
-    .tabs:not(:last-child) {
-        margin: 0.3rem;
-    }
+        .tabs:not(:last-child) {
+            margin: 0.3rem;
+        }
 
-    .tab-content {
-        margin: 0;
-    }
+        .tab-content {
+            margin: 0;
+        }
 
     }
 
