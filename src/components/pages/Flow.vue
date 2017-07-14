@@ -24,28 +24,30 @@
 
             <a class="button is-primary is-small">
             <span class="icon">
-                <i class="fa fa-circle"></i>
-            </span>
-                <span>Tech details</span>
-            </a>
-
-            <a class="button is-primary is-small">
-            <span class="icon">
                 <i class="fa fa-user-md"></i>
             </span>
                 <span>QFP Applications</span>
             </a>
+            <div class="is-pulled-right tech-details-label">
+                <span v-show="!showTechDetail">Show</span>
+                <span v-show="showTechDetail">Hide</span> technical details
+                <vb-switch type="success" size="medium" checked v-model="showTechDetail"></vb-switch>
+            </div>
         </div>
 
         <div>
             <h1 class="title">Flow</h1>
+
             <tabs animation="slide" :only-fade="false" size="small">
 
                 <tab-pane label="Main Details">Main Details</tab-pane>
 
                 <tab-pane label="Task Sequence">
                     <div class="tile is-parent is-paddingless task-sequence">
-                        <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
+                        <draggable v-model="tasks" :options="{group:'tasks'}">
+                            <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
+                        </draggable>
+                        <qfp-tech-details></qfp-tech-details>
                     </div>
                 </tab-pane>
 
@@ -59,7 +61,9 @@
 
   import {Tabs, TabPane} from 'vue-bulma-tabs'
   import Task from './Flow/Task.vue'
+  import TechDetails from './Flow/TechDetails.vue'
   import Draggable from 'vuedraggable'
+  import VbSwitch from 'vue-bulma-switch'
 
   export default {
     name: 'main',
@@ -67,7 +71,9 @@
       Tabs,
       TabPane,
       Draggable,
-      'qfp-task': Task
+      VbSwitch,
+      'qfp-task': Task,
+      'qfp-tech-details': TechDetails
     },
 
     data () {
@@ -96,11 +102,24 @@
           }
         ]
       }
+    },
+
+    computed: {
+      showTechDetail: {
+        get () {
+          this.$store.getters.techDetailsOpened
+        },
+        set (value) {
+          this.$store.commit('toggleTechDetails')
+        }
+      }
     }
   }
 </script>
 
 <style lang="scss">
+
+    @import "../../assets/sass/bulma-variables.sass";
 
     .fixed-height {
         height: 100%;
@@ -113,11 +132,21 @@
         .icon i.fa {
             font-size: 14px;
         }
+
+        .tech-details-label {
+
+        }
+
+        .switch.is-success.checked {
+            background-color: $blue;
+            border-color: $blue;
+        }
     }
 
     .task-sequence {
         overflow-y: hidden;
         overflow-x: scroll;
+        white-space: nowrap;
     }
 
     .flow .vue-bulma-tabs {
@@ -135,4 +164,6 @@
     article.box {
         padding: 0.5rem;
     }
+
+
 </style>

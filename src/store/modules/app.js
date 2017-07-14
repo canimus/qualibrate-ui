@@ -3,6 +3,9 @@ export default {
     sidebar: {
       opened: true
     },
+    techDetails: {
+      opened: false
+    },
     modal: {
       opened: false,
       imageSrc: ''
@@ -13,12 +16,21 @@ export default {
   getters: {
     sidebarOpened (state) {
       return state.sidebar.opened
+    },
+
+    techDetailsOpened (state) {
+      return state.techDetails.opened
     }
+
   },
 
   mutations: {
     toggleSidebar (state) {
       state.sidebar.opened = !state.sidebar.opened
+    },
+
+    toggleTechDetails (state) {
+      state.techDetails.opened = !state.techDetails.opened
     },
 
     openModal (state, imageSrc) {
