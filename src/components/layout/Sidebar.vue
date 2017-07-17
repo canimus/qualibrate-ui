@@ -97,7 +97,7 @@
         box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
         overflow-y: auto;
         overflow-x: hidden;
-        transition: margin-left 0.7s;
+        transition: margin-left 0.5s;
 
         @include mobile() {
             transform: translate3d(-180px, 0, 0);
@@ -105,7 +105,7 @@
 
         &.slideInLeft {
             margin-left: -250px;
-            transition: margin-left 0.7s;
+            transition: margin-left 0.5s;
         }
 
     }

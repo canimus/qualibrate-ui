@@ -1,5 +1,5 @@
 <template>
-    <div class="user-action" :class="{active: userAction.active}" @click="setActive()">
+    <div class="user-action" :class="{active: isActive}" @click="setActive()">
         <span class="icon">
             <i class="is-pulled-left fa fa-small" :class="userAction.iconClass"></i>
         </span>
@@ -33,9 +33,16 @@
       }
     },
 
+    computed: {
+      isActive () {
+        return this.userAction.id === this.$store.getters.activeUserAction.id
+      }
+    },
+
     methods: {
       setActive () {
-        this.$emit('setActive')
+        this.$emit('setTaskActive')
+        this.$store.commit('setActiveUserAction', this.userAction)
       }
     }
   }

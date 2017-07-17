@@ -1,40 +1,47 @@
 <template>
-    <div class="tech-details" :class="{ opened: !techDetailsOpened }">
-        <div class="content">
-            <tabs animation="slide" :only-fade="false" size="small">
-
-                <tab-pane label="Documentation" icon="fa fa-graduation-cap">
-                    <qfp-documentation-tab></qfp-documentation-tab>
-                </tab-pane>
-
-                <tab-pane label="User" icon="fa fa-user-md">
-                    <qfp-user-tab></qfp-user-tab>
-                </tab-pane>
-
-                <tab-pane label="Automation" icon="fa fa-bolt">
-                    <qfp-automation-tab></qfp-automation-tab>
-                </tab-pane>
-            </tabs>
+    <section class="section">
+        <h1>SAP Logon</h1>
+        <hr/>
+        1.1 Connect to SAP <br/><br/>
+        <div class="field">
+            <textarea class="textarea"></textarea>
         </div>
-    </div>
+
+        <table class="table is-small">
+            <thead>
+            <tr>
+                <th><i class="fa fa-trash"></i></th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Mandatory</th>
+                <th>Regex</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><i class="fa fa-trash"></i></td>
+                <td>Id</td>
+                <td>/app/con[0]/ses[0]</td>
+                <td><input type="checkbox"/></td>
+                <td><input type="checkbox"/></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </section>
 </template>
 
 <script>
 
   import {Tabs, TabPane} from 'vue-bulma-tabs'
   import {mapGetters} from 'vuex'
-  import DocumentationTab from './TechDetails/DocumentationTab.vue'
-  import UserTab from './TechDetails/UserTab.vue'
-  import AutomationTab from './TechDetails/AutomationTab.vue'
 
   export default {
 
     components: {
       Tabs,
-      TabPane,
-      'qfp-documentation-tab': DocumentationTab,
-      'qfp-user-tab': UserTab,
-      'qfp-automation-tab': AutomationTab
+      TabPane
     },
 
     computed: mapGetters({
@@ -47,7 +54,7 @@
 
 <style lang="scss">
 
-    @import "./../../../assets/sass/bulma-variables.sass";
+    @import "./../../../../assets/sass/bulma-variables.sass";
 
     .tech-details {
         position: absolute;
