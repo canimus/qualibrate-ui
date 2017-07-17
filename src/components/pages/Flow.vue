@@ -29,9 +29,9 @@
                 <span>QFP Applications</span>
             </a>
             <div class="is-pulled-right tech-details-label">
-                <span v-show="!showTechDetail">Show</span>
-                <span v-show="showTechDetail">Hide</span> technical details
-                <vb-switch type="success" size="medium" checked v-model="showTechDetail"></vb-switch>
+                <span v-show="showTechDetail">Show</span>
+                <span v-show="!showTechDetail">Hide</span> technical details
+                <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
             </div>
         </div>
 
@@ -43,7 +43,8 @@
                 <tab-pane label="Main Details">Main Details</tab-pane>
 
                 <tab-pane label="Task Sequence">
-                    <div class="tile is-parent is-paddingless task-sequence">
+                    <div class="tile is-parent is-paddingless task-sequence"
+                         :class="{ 'right-margin': !techDetailsOpened }">
                         <draggable v-model="tasks" :options="{group:'tasks'}">
                             <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
                         </draggable>
@@ -76,38 +77,19 @@
       'qfp-tech-details': TechDetails
     },
 
-    data () {
-      return {
-        tasks: [
-          {
-            title: 'SAP Logon'
-          },
-          {
-            title: 'Create Quotation'
-          },
-          {
-            title: 'Logoff'
-          },
-          {
-            title: 'SAP Logon'
-          },
-          {
-            title: 'Create Quotation'
-          },
-          {
-            title: 'Logoff'
-          },
-          {
-            title: 'SAP Logon'
-          }
-        ]
-      }
-    },
-
     computed: {
+
+      techDetailsOpened () {
+        return this.$store.getters.techDetailsOpened
+      },
+
+      tasks () {
+        return this.$store.state.app.tasks
+      },
+
       showTechDetail: {
         get () {
-          this.$store.getters.techDetailsOpened
+          return this.$store.getters.techDetailsOpened
         },
         set (value) {
           this.$store.commit('toggleTechDetails')
@@ -147,6 +129,12 @@
         overflow-y: hidden;
         overflow-x: scroll;
         white-space: nowrap;
+        transition: margin-right 0.5s;
+
+        &.right-margin {
+            margin-right: 450px;
+            transition: margin-right 0.5s;
+        }
     }
 
     .flow .vue-bulma-tabs {
