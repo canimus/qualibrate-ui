@@ -1,24 +1,22 @@
 <template>
     <div class="task" @click="setActive" :class="{active: isActive}">
-        <article class="tile is-child box">
+        <article class="box">
             <div class="content">
                 <h2 class="is-pulled-left">{{task.title}}</h2>
                 <qfp-context-menu :items="menuItems"></qfp-context-menu>
                 <br/>
             </div>
-            <div class="content">
-                <figure class="image is-4by3" @click="openModal">
-                    <img :src="activeTaskUserAction.imageSrc">
-                </figure>
 
-                <div class="user-action-wrapper">
-                    <draggable class="user-actions" v-model="userActions" :options="{group:'userActions'}">
-                        <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
-                                         :userAction="userAction" @setTaskActive="setActive()">
-                        </qfp-user-action>
-                    </draggable>
-                </div>
+            <figure class="image is-4by3" @click="openModal">
+                <img :src="activeTaskUserAction.imageSrc">
+            </figure>
 
+            <div class="user-action-wrapper">
+                <draggable class="user-actions" v-model="userActions" :options="{group:'userActions'}">
+                    <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
+                                     :userAction="userAction" @setTaskActive="setActive()">
+                    </qfp-user-action>
+                </draggable>
             </div>
         </article>
 
@@ -62,8 +60,94 @@
             notes: [
               {id: 1, date: '2016-02-01T00:00:00-06:00', userName: 'Martin Razus', message: 'This is test'},
               {id: 2, date: '2016-02-01T00:00:00-06:00', userName: 'Martin Razus', message: 'Lorem ipsum dolor sit ...'}
+            ],
+            steps: [
+              {
+                id: 1,
+                title: 'SAPSession',
+                properties: [
+                  {
+                    id: 1,
+                    name: 'id 1',
+                    value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 2,
+                    name: 'Type',
+                    value: 'GuiOkCodeField',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 3,
+                    name: 'Name',
+                    value: 'okcd',
+                    mandatory: false,
+                    regex: false
+                  }
+                ],
+                children: [{
+
+                  id: 2,
+                  title: 'SAP Easy Access',
+                  properties: [
+                    {
+                      id: 1,
+                      name: 'id 2',
+                      value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                      mandatory: true,
+                      regex: true
+                    },
+                    {
+                      id: 2,
+                      name: 'Type',
+                      value: 'GuiOkCodeField',
+                      mandatory: true,
+                      regex: false
+                    },
+                    {
+                      id: 2,
+                      name: 'Name',
+                      value: 'okcd',
+                      mandatory: false,
+                      regex: false
+                    }
+                  ],
+                  children: [{
+
+                    id: 3,
+                    title: 'okcd',
+                    properties: [
+                      {
+                        id: 1,
+                        name: 'id 3',
+                        value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                        mandatory: false,
+                        regex: true
+                      },
+                      {
+                        id: 2,
+                        name: 'Type',
+                        value: 'GuiOkCodeField',
+                        mandatory: true,
+                        regex: false
+                      },
+                      {
+                        id: 2,
+                        name: 'Name',
+                        value: 'okcd',
+                        mandatory: false,
+                        regex: false
+                      }
+                    ]
+                  }]
+                }]
+              }
             ]
           },
+
           {
             id: this.task.id + '2',
             title: '1.2 Type P_PASSWORD in Password',
@@ -94,8 +178,8 @@
             userActionId: 3,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 3'
-
+            parameterName: 'parameter 3',
+            notes: []
           },
           {
             id: this.task.id + '4',
@@ -106,7 +190,8 @@
             userActionId: 4,
             mandatory: false,
             parameterType: 'none',
-            parameterName: 'parameter 4'
+            parameterName: 'parameter 4',
+            notes: []
           },
           {
             id: this.task.id + '5',
@@ -117,7 +202,8 @@
             userActionId: 5,
             mandatory: false,
             parameterType: 'input',
-            parameterName: 'parameter 5'
+            parameterName: 'parameter 5',
+            notes: []
           },
           {
             id: this.task.id + '6',
@@ -128,7 +214,8 @@
             userActionId: 5,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 6'
+            parameterName: 'parameter 6',
+            notes: []
           },
           {
             id: this.task.id + '7',
@@ -139,7 +226,8 @@
             userActionId: 5,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 7'
+            parameterName: 'parameter 7',
+            notes: []
           },
           {
             id: this.task.id + '8',
@@ -150,7 +238,8 @@
             userActionId: 5,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 8'
+            parameterName: 'parameter 8',
+            notes: []
           },
           {
             id: this.task.id + '9',
@@ -161,7 +250,8 @@
             userActionId: 7,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 9'
+            parameterName: 'parameter 9',
+            notes: []
           },
           {
             id: this.task.id + '10',
@@ -172,7 +262,8 @@
             userActionId: 6,
             mandatory: true,
             parameterType: 'input',
-            parameterName: 'parameter 10'
+            parameterName: 'parameter 10',
+            notes: []
           }
         ],
 
@@ -251,6 +342,7 @@
         article {
             min-height: 100%;
             max-height: 100%;
+            position: relative;
 
             h2 {
                 cursor: move;
@@ -261,10 +353,14 @@
             }
 
             .user-action-wrapper {
+                padding: 0 .5rem;
+                position: absolute;
+                top: 270px;
+                bottom: 0;
+                left: 0;
+                right: 0;
                 overflow: scroll;
-                position: relative;
             }
-
         }
 
         &.sortable-ghost {

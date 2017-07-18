@@ -53,11 +53,19 @@
         position: absolute;
         top: 0;
         right: 0;
-        margin-right: -450px;
-        width: 450px;
+        margin-right: -550px;
+        width: 550px;
         height: 100%;
         background-color: $background-grey;
         transition: margin-right 0.5s;
+
+        > div {
+            height: 100%;
+        }
+
+        .vue-bulma-tabs {
+            height: 100%;
+        }
 
         &.opened {
             margin-right: 0;

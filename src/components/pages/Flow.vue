@@ -29,8 +29,8 @@
                 <span>QFP Applications</span>
             </a>
             <div class="is-pulled-right tech-details-label">
-                <span v-show="showTechDetail">Show</span>
-                <span v-show="!showTechDetail">Hide</span> technical details
+                <span v-show="showTechDetail">Show technical details</span>
+                <span v-show="!showTechDetail">Hide technical details</span>
                 <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
             </div>
         </div>
@@ -116,7 +116,12 @@
         }
 
         .tech-details-label {
+            display: flex;
+            align-items: center;
 
+            label.switch {
+                margin-left: 10px;
+            }
         }
 
         .switch.is-success.checked {
@@ -132,7 +137,7 @@
         transition: margin-right 0.5s;
 
         &.right-margin {
-            margin-right: 450px;
+            margin-right: 550px;
             transition: margin-right 0.5s;
         }
     }
