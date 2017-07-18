@@ -19,8 +19,8 @@ export default {
       imageSrc: ''
     },
     activeTask: {},
-    activeUserAction: {id: '0'}
-
+    activeUserAction: {id: '0'},
+    activeStep: {}
   },
 
   getters: {
@@ -42,6 +42,10 @@ export default {
 
     userActionsOptions (state) {
       return state.userActionsOptions
+    },
+
+    activeStep (state) {
+      return state.activeStep
     }
 
   },
@@ -77,6 +81,10 @@ export default {
 
     setActiveUserAction (state, userAction) {
       state.activeUserAction = userAction
+    },
+
+    setActiveStep (state, step) {
+      state.activeStep = step
     }
 
   }

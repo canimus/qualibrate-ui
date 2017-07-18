@@ -59,13 +59,24 @@
 <style lang="scss">
 
     .documentation-tab {
-        display: flex;
-        flex-direction: column;
+
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
 
         .notes {
-            flex: 1 1 auto;
-            overflow-y: auto;
-            min-height: 0px;
+            padding: 1.5rem;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            position: absolute;
+            min-height:0;
+            top: 220px;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
     }
 

@@ -43,6 +43,12 @@
       setActive () {
         this.$emit('setTaskActive')
         this.$store.commit('setActiveUserAction', this.userAction)
+
+        if (this.userAction.steps) {
+          this.$store.commit('setActiveStep', this.userAction.steps[0])
+        } else {
+          this.$store.commit('setActiveStep', {})
+        }
       }
     }
   }
@@ -61,6 +67,11 @@
 
         &.active {
             box-shadow: 0 1px 2px $blue, 0 0 0 1px $blue;
+        }
+
+        &.sortable-chosen.sortable-ghost {
+            background-color: $blue;
+            opacity: 0.3;
         }
 
         &.sortable-ghost {

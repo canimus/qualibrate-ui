@@ -1,0 +1,89 @@
+<template>
+
+    <li class="step">
+        <span class="icon" @click="toggleOpen()" :class="{opened: opened}"><i
+                v-if="hasChildren" class="fa fa-caret-right"></i></span>
+        <span class="step-title" @click="setActiveStep" :class="{active: isActive}">
+              <span class="icon is-small"><i class="fa fa-code-fork"></i></span>
+            {{ step.title }}
+        </span>
+
+        <ul v-if="hasChildren" :class="{stepOpened: opened}">
+            <qfp-step v-for="childStep in step.children" :step="childStep" :key="childStep.id"></qfp-step>
+        </ul>
+    </li>
+</template>
+
+<script>
+
+  export default {
+    name: 'qfp-step',
+    props: ['step'],
+
+    data () {
+      return {
+        opened: true
+      }
+    },
+
+    computed: {
+      hasChildren () {
+        return this.step.children && this.step.children.length > 0
+      },
+
+      isActive () {
+        return this.step.id === this.$store.getters.activeStep.id
+      }
+    },
+
+    methods: {
+      toggleOpen () {
+        this.opened = !this.opened
+      },
+
+      setActiveStep () {
+        this.$store.commit('setActiveStep', this.step)
+      }
+    }
+
+  }
+</script>
+
+<style lang="scss">
+
+    @import "./../../../../../assets/sass/bulma-variables.sass";
+
+    li.step {
+        list-style: none;
+
+        .step-title {
+            cursor: pointer;
+            font-weight: bold;
+
+            &.active {
+                color: $blue;
+            }
+        }
+
+        .icon {
+            transition: transform 0.3s;
+
+            &.opened {
+                transform: rotate(90deg);
+                transition: transform 0.3s;
+            }
+        }
+
+        ul {
+            max-height: 0;
+            transition: max-height 0.5s;
+            overflow: hidden;
+
+            &.stepOpened {
+                max-height: 100px;
+                transition: max-height 0.5s;
+            }
+        }
+
+    }
+</style>
