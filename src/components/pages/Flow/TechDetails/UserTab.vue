@@ -1,8 +1,8 @@
 <template>
 
     <section class="section user-tech-details-tab">
-        <h1>{{ activeTask.title }}</h1>
-        <div class="user-action-title">{{ activeUserAction.title }}</div>
+        <h1 class="title is-5">{{ activeTask.title }}</h1>
+        <div class="user-action-title title is-6">{{ activeUserAction.title }}</div>
         <div class="field">
             <label class="label">User Action</label>
             <p class="control">
@@ -70,11 +70,13 @@
 
     .user-tech-details-tab {
 
-        select {
-            width: 100%;
-        }
-        label.label {
+        select, input[type="text"] {
+            width: 500px;
             font-size: 14px;
+        }
+
+        label.label {
+            font-size: 12px;
             color: grey;
         }
 

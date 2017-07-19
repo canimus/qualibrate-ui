@@ -34,27 +34,25 @@
                 <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
             </div>
         </div>
+        <h1 class="title">Flow</h1>
 
-        <div>
-            <h1 class="title">Flow</h1>
+        <tabs animation="slide" :only-fade="false" size="small" class="main-tabs">
 
-            <tabs animation="slide" :only-fade="false" size="small">
+            <tab-pane label="Task Sequence">
 
-                <tab-pane label="Main Details">Main Details</tab-pane>
+                    <draggable v-model="tasks" :options="{group:'tasks'}" class="task-sequence"
+                               :class="{ 'right-margin': !techDetailsOpened }">
+                        <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
+                    </draggable>
+                    <qfp-tech-details></qfp-tech-details>
 
-                <tab-pane label="Task Sequence">
-                    <div class="tile is-parent is-paddingless task-sequence"
-                         :class="{ 'right-margin': !techDetailsOpened }">
-                        <draggable v-model="tasks" :options="{group:'tasks'}">
-                            <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
-                        </draggable>
-                        <qfp-tech-details></qfp-tech-details>
-                    </div>
-                </tab-pane>
+            </tab-pane>
 
-                <tab-pane label="Documents">Document</tab-pane>
-            </tabs>
-        </div>
+            <tab-pane label="Main Details">Main Details</tab-pane>
+
+            <tab-pane label="Documents">Document</tab-pane>
+        </tabs>
+
     </section>
 </template>
 
@@ -109,7 +107,7 @@
     }
 
     .top-buttons {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
 
         .icon i.fa {
             font-size: 14px;
@@ -130,11 +128,21 @@
         }
     }
 
+    h1.title {
+        margin-bottom: 10px !important;
+    }
+
     .task-sequence {
         overflow-y: hidden;
         overflow-x: scroll;
         white-space: nowrap;
         transition: margin-right 0.5s;
+        height: 100%;
+        min-height: 100%;
+        width: auto;
+        padding-bottom: 5px;
+        display: block;
+        position: relative;
 
         &.right-margin {
             margin-right: 550px;
@@ -142,7 +150,13 @@
         }
     }
 
-    .flow .vue-bulma-tabs {
+    .flow .vue-bulma-tabs.main-tabs {
+
+        position: absolute;
+        top: 160px;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        right: 1.5rem;
 
         .tabs:not(:last-child) {
             margin: 0.3rem;

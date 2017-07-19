@@ -144,6 +144,172 @@
                     ]
                   }]
                 }]
+              },
+              {
+                id: 11,
+                title: 'SAPSession',
+                properties: [
+                  {
+                    id: 1,
+                    name: 'id 1',
+                    value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 2,
+                    name: 'Type',
+                    value: 'GuiOkCodeField',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 3,
+                    name: 'Name',
+                    value: 'okcd',
+                    mandatory: false,
+                    regex: false
+                  }
+                ],
+                children: [{
+
+                  id: 12,
+                  title: 'SAP Easy Access',
+                  properties: [
+                    {
+                      id: 1,
+                      name: 'id 2',
+                      value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                      mandatory: true,
+                      regex: true
+                    },
+                    {
+                      id: 2,
+                      name: 'Type',
+                      value: 'GuiOkCodeField',
+                      mandatory: true,
+                      regex: false
+                    },
+                    {
+                      id: 2,
+                      name: 'Name',
+                      value: 'okcd',
+                      mandatory: false,
+                      regex: false
+                    }
+                  ],
+                  children: [{
+
+                    id: 13,
+                    title: 'okcd',
+                    properties: [
+                      {
+                        id: 1,
+                        name: 'id 3',
+                        value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                        mandatory: false,
+                        regex: true
+                      },
+                      {
+                        id: 2,
+                        name: 'Type',
+                        value: 'GuiOkCodeField',
+                        mandatory: true,
+                        regex: false
+                      },
+                      {
+                        id: 2,
+                        name: 'Name',
+                        value: 'okcd',
+                        mandatory: false,
+                        regex: false
+                      }
+                    ]
+                  }]
+                }]
+              },
+              {
+                id: 21,
+                title: 'SAPSession',
+                properties: [
+                  {
+                    id: 1,
+                    name: 'id 1',
+                    value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 2,
+                    name: 'Type',
+                    value: 'GuiOkCodeField',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 3,
+                    name: 'Name',
+                    value: 'okcd',
+                    mandatory: false,
+                    regex: false
+                  }
+                ],
+                children: [{
+
+                  id: 22,
+                  title: 'SAP Easy Access',
+                  properties: [
+                    {
+                      id: 1,
+                      name: 'id 2',
+                      value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                      mandatory: true,
+                      regex: true
+                    },
+                    {
+                      id: 2,
+                      name: 'Type',
+                      value: 'GuiOkCodeField',
+                      mandatory: true,
+                      regex: false
+                    },
+                    {
+                      id: 2,
+                      name: 'Name',
+                      value: 'okcd',
+                      mandatory: false,
+                      regex: false
+                    }
+                  ],
+                  children: [{
+
+                    id: 23,
+                    title: 'okcd',
+                    properties: [
+                      {
+                        id: 1,
+                        name: 'id 3',
+                        value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                        mandatory: false,
+                        regex: true
+                      },
+                      {
+                        id: 2,
+                        name: 'Type',
+                        value: 'GuiOkCodeField',
+                        mandatory: true,
+                        regex: false
+                      },
+                      {
+                        id: 2,
+                        name: 'Name',
+                        value: 'okcd',
+                        mandatory: false,
+                        regex: false
+                      }
+                    ]
+                  }]
+                }]
               }
             ]
           },
@@ -297,19 +463,7 @@
 
       openModal () {
         this.$store.commit('openModal', this.activeTaskUserAction.imageSrc)
-      },
-
-      initTasksHeight () {
-        let top = this.$el.getBoundingClientRect().top
-
-        this.$el.style.maxHeight = window.innerHeight - top - 20 + 'px'
-        this.$el.style.minHeight = window.innerHeight - top - 20 + 'px'
       }
-    },
-
-    mounted () {
-      window.addEventListener('resize', this.initTasksHeight)
-      this.initTasksHeight()
     },
 
     watch: {
@@ -327,11 +481,12 @@
     @import "../../../assets/sass/bulma-variables.sass";
 
     .task {
-        min-width: 300px;
+        width: 300px;
         display: inline-block;
-        padding: 0.25rem;
+        margin: 0.25rem;
         vertical-align: top;
         height: 100%;
+        position: relative;
 
         &.active {
             article {
@@ -342,7 +497,8 @@
         article {
             min-height: 100%;
             max-height: 100%;
-            position: relative;
+            position: absolute;
+            width: 100%;
 
             h2 {
                 cursor: move;
@@ -355,11 +511,13 @@
             .user-action-wrapper {
                 padding: 0 .5rem;
                 position: absolute;
-                top: 270px;
+                top: 280px;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                overflow: scroll;
+                width: 300px;
+                overflow-y: scroll;
+                overflow-x: visible;
             }
         }
 

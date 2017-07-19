@@ -64,6 +64,7 @@
         margin: 5px 0;
         padding: 4px 7px 4px 3px;
         cursor: move;
+        position: relative;
 
         &.active {
             box-shadow: 0 1px 2px $blue, 0 0 0 1px $blue;
