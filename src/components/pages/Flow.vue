@@ -137,12 +137,13 @@
         overflow-x: scroll;
         white-space: nowrap;
         transition: margin-right 0.5s;
-        height: 100%;
-        min-height: 100%;
-        width: auto;
         padding-bottom: 5px;
         display: block;
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
 
         &.right-margin {
             margin-right: 550px;

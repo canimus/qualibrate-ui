@@ -1,10 +1,12 @@
 <template>
-    <div class="user-action" :class="{active: isActive}" @click="setActive()">
+    <div class="user-action" :class="{active: isActive}" @click="setActive()" @blur="removeEditable">
         <span class="icon">
             <i class="is-pulled-left fa fa-small" :class="userAction.iconClass"></i>
         </span>
 
-        {{userAction.title}}
+        {{ userAction.title | truncate(40) }}
+
+        <textarea v-if="editable" v-model="editableTitle" @blur="removeEditable" ref="textarea"></textarea>
 
         <qfp-context-menu :items="menuItems"></qfp-context-menu>
 
@@ -14,6 +16,7 @@
 <script>
 
   import ContextMenu from './../../layout/ContextMenu.vue'
+  import Vue from 'vue'
 
   export default {
 
@@ -25,11 +28,13 @@
 
     data () {
       return {
+        editableTitle: this.userAction.title,
         menuItems: [
           {title: 'Record Step', iconClass: 'fa-dot-circle-o', link: '#asdf'},
           {title: 'Delete Step', iconClass: 'fa-trash', link: '#asdf'},
           {title: 'Duplicate Step', iconClass: 'fa-copy', link: '#asdf'}
-        ]
+        ],
+        editable: false
       }
     },
 
@@ -40,14 +45,26 @@
     },
 
     methods: {
-      setActive () {
-        this.$emit('setTaskActive')
-        this.$store.commit('setActiveUserAction', this.userAction)
+      removeEditable () {
+        this.editable = false
+        this.userAction.title = this.editableTitle
+      },
 
-        if (this.userAction.steps) {
-          this.$store.commit('setActiveStep', this.userAction.steps[0])
+      setActive () {
+        if (this.isActive) {
+          this.editable = true
+          Vue.nextTick(() => {
+            this.$refs.textarea.focus()
+          })
         } else {
-          this.$store.commit('setActiveStep', {})
+          this.$emit('setTaskActive')
+          this.$store.commit('setActiveUserAction', this.userAction)
+
+          if (this.userAction.steps) {
+            this.$store.commit('setActiveStep', this.userAction.steps[0])
+          } else {
+            this.$store.commit('setActiveStep', {})
+          }
         }
       }
     }
@@ -84,6 +101,20 @@
             background: $blue;
             color: #fff;
             cursor: move;
+        }
+
+        textarea {
+            font-size: 12px;
+            padding: 4px 7px 4px 4px;
+            position: absolute;
+            top: 3px;
+            left: 26px;
+            width: 240px;
+            outline: none;
+            border: none;
+            background: $blue;
+            color: #fff;
+            opacity: 1;
         }
 
         i.fa-ellipsis-v {

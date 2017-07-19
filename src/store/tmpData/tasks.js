@@ -1,7 +1,7 @@
 let tasks = [
   {
     id: 1,
-    title: 'SAP Logon'
+    title: 'SAP Logon Create Quotation'
   },
   {
     id: 2,
@@ -9,7 +9,7 @@ let tasks = [
   },
   {
     id: 3,
-    title: 'Logoff'
+    title: 'Logoff asd sd sd sd sd sd sd '
   },
   {
     id: 4,
