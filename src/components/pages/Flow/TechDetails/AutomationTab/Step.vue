@@ -4,7 +4,7 @@
         <span class="icon" @click="toggleOpen()" :class="{opened: opened}"><i
                 v-if="hasChildren" class="fa fa-caret-right"></i></span>
         <span class="step-title" @click="setActiveStep" :class="{active: isActive}">
-              <span class="icon is-small"><i class="fa fa-code-fork"></i></span>
+              <span class="icon"><i class="fa fa-code-fork"></i></span>
             {{ step.title }}
         </span>
 
@@ -55,6 +55,7 @@
 
     li.step {
         list-style: none;
+        font-size: 12px;
 
         .step-title {
             cursor: pointer;
@@ -63,25 +64,37 @@
             &.active {
                 color: $blue;
             }
+
+            i {
+                font-size: 12px !important;
+            }
         }
 
         .icon {
-            transition: transform 0.3s;
+            transition: transform 0.2s;
+            width: .8rem;
+            height: .8rem;
+
+            i {
+                font-size: 16px;
+            }
 
             &.opened {
                 transform: rotate(90deg);
-                transition: transform 0.3s;
+                transition: transform 0.2s;
             }
         }
 
         ul {
+            margin-top: 0;
             max-height: 0;
-            transition: max-height 0.5s;
+            margin-left: 16px;
+            transition: max-height 0.2s;
             overflow: hidden;
 
             &.stepOpened {
                 max-height: 100px;
-                transition: max-height 0.5s;
+                transition: max-height 0.2s;
             }
         }
 

@@ -7,10 +7,12 @@ import router from './router'
 import VueMoment from 'vue-moment'
 import lodash from 'lodash'
 import VueLodash from 'vue-lodash/dist/vue-lodash.min'
+import VueTruncate from 'vue-truncate-filter'
 
 sync(store, router)
 Vue.use(VueMoment)
 Vue.use(VueLodash, lodash)
+Vue.use(VueTruncate)
 
 Vue.config.productionTip = false
 
@@ -22,3 +24,4 @@ new Vue({
   template: '<App/>',
   components: {App}
 })
+

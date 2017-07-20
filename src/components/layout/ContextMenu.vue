@@ -41,8 +41,11 @@
 <style lang="scss">
     .context-menu {
         padding: 0;
+        position: absolute;
+        top: 5px;
+        right: 10px;
 
-        .navbar-dropdown  {
+        .navbar-dropdown {
             border-top: none;
             border-radius: 3px;
             box-shadow: 0 5px 10px rgba(10, 10, 10, 0.5);

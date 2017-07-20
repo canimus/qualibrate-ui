@@ -25,6 +25,7 @@
     "vue-lodash": "^1.0.3",
     "vue-moment": "^2.0.2",
     "vue-router": "^2.3.1",
+    "vue-truncate-filter": "^1.1.6",
     "vuedraggable": "^2.14.1",
     "vuex": "^2.3.1",
     "vuex-router-sync": "^4.2.0"

@@ -2,8 +2,11 @@
     <div class="task" @click="setActive" :class="{active: isActive}">
         <article class="box">
             <div class="content">
-                <h2 class="is-pulled-left">{{task.title}}</h2>
-                <qfp-context-menu :items="menuItems"></qfp-context-menu>
+                <h2 class="is-pulled-left" @click="makeEditable">{{ task.title | truncate(25) }}</h2>
+                <textarea v-if="editable" @blur="removeEditable" ref="textarea" v-model="editableTitle"></textarea>
+                <div class="menu-wrapper">
+                    <qfp-context-menu :items="menuItems"></qfp-context-menu>
+                </div>
                 <br/>
             </div>
 
@@ -11,13 +14,12 @@
                 <img :src="activeTaskUserAction.imageSrc">
             </figure>
 
-            <div class="user-action-wrapper">
-                <draggable class="user-actions" v-model="userActions" :options="{group:'userActions'}">
-                    <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
-                                     :userAction="userAction" @setTaskActive="setActive()">
-                    </qfp-user-action>
-                </draggable>
-            </div>
+            <draggable class="user-action-wrapper" v-model="userActions" :options="{group:'userActions'}">
+                <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
+                                 :userAction="userAction" @setTaskActive="setActive()">
+                </qfp-user-action>
+            </draggable>
+
         </article>
 
     </div>
@@ -28,6 +30,7 @@
   import Draggable from 'vuedraggable'
   import UserAction from './UserAction.vue'
   import ContextMenu from './../../layout/ContextMenu.vue'
+  import Vue from 'vue'
 
   export default {
 
@@ -41,6 +44,8 @@
 
     data () {
       return {
+        editable: false,
+        editableTitle: this.task.title,
         menuItems: [
           {title: 'Delete Task', iconClass: 'fa-trash', link: '#asdf'},
           {title: 'Insert User Action', iconClass: 'fa-plus', link: '#asdf'}
@@ -144,13 +149,179 @@
                     ]
                   }]
                 }]
+              },
+              {
+                id: 11,
+                title: 'SAPSession',
+                properties: [
+                  {
+                    id: 1,
+                    name: 'id 1',
+                    value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 2,
+                    name: 'Type',
+                    value: 'GuiOkCodeField',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 3,
+                    name: 'Name',
+                    value: 'okcd',
+                    mandatory: false,
+                    regex: false
+                  }
+                ],
+                children: [{
+
+                  id: 12,
+                  title: 'SAP Easy Access',
+                  properties: [
+                    {
+                      id: 1,
+                      name: 'id 2',
+                      value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                      mandatory: true,
+                      regex: true
+                    },
+                    {
+                      id: 2,
+                      name: 'Type',
+                      value: 'GuiOkCodeField',
+                      mandatory: true,
+                      regex: false
+                    },
+                    {
+                      id: 2,
+                      name: 'Name',
+                      value: 'okcd',
+                      mandatory: false,
+                      regex: false
+                    }
+                  ],
+                  children: [{
+
+                    id: 13,
+                    title: 'okcd',
+                    properties: [
+                      {
+                        id: 1,
+                        name: 'id 3',
+                        value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                        mandatory: false,
+                        regex: true
+                      },
+                      {
+                        id: 2,
+                        name: 'Type',
+                        value: 'GuiOkCodeField',
+                        mandatory: true,
+                        regex: false
+                      },
+                      {
+                        id: 2,
+                        name: 'Name',
+                        value: 'okcd',
+                        mandatory: false,
+                        regex: false
+                      }
+                    ]
+                  }]
+                }]
+              },
+              {
+                id: 21,
+                title: 'SAPSession',
+                properties: [
+                  {
+                    id: 1,
+                    name: 'id 1',
+                    value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 2,
+                    name: 'Type',
+                    value: 'GuiOkCodeField',
+                    mandatory: true,
+                    regex: false
+                  },
+                  {
+                    id: 3,
+                    name: 'Name',
+                    value: 'okcd',
+                    mandatory: false,
+                    regex: false
+                  }
+                ],
+                children: [{
+
+                  id: 22,
+                  title: 'SAP Easy Access',
+                  properties: [
+                    {
+                      id: 1,
+                      name: 'id 2',
+                      value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                      mandatory: true,
+                      regex: true
+                    },
+                    {
+                      id: 2,
+                      name: 'Type',
+                      value: 'GuiOkCodeField',
+                      mandatory: true,
+                      regex: false
+                    },
+                    {
+                      id: 2,
+                      name: 'Name',
+                      value: 'okcd',
+                      mandatory: false,
+                      regex: false
+                    }
+                  ],
+                  children: [{
+
+                    id: 23,
+                    title: 'okcd',
+                    properties: [
+                      {
+                        id: 1,
+                        name: 'id 3',
+                        value: '/app/con[0]/ses[0]/wnd[0]/tbar[0]/okcd',
+                        mandatory: false,
+                        regex: true
+                      },
+                      {
+                        id: 2,
+                        name: 'Type',
+                        value: 'GuiOkCodeField',
+                        mandatory: true,
+                        regex: false
+                      },
+                      {
+                        id: 2,
+                        name: 'Name',
+                        value: 'okcd',
+                        mandatory: false,
+                        regex: false
+                      }
+                    ]
+                  }]
+                }]
               }
             ]
           },
 
           {
             id: this.task.id + '2',
-            title: '1.2 Type P_PASSWORD in Password',
+            title: '1.2 Type P_PASSWORD in Password press ENTER on SAP Easy Access.',
             iconClass: 'fa-terminal',
             imageSrc: 'http://lorempixel.com/276/207/abstract/2',
             active: false,
@@ -207,7 +378,7 @@
           },
           {
             id: this.task.id + '6',
-            title: '1.1 Connect to SAP',
+            title: '1.1 Connect to SAP Press ENTER on SAP Easy Access.',
             iconClass: 'fa-connectdevelop',
             imageSrc: 'http://lorempixel.com/276/207/abstract/' + (Math.floor(Math.random() * 10) + 1),
             active: false,
@@ -231,7 +402,7 @@
           },
           {
             id: this.task.id + '8',
-            title: '1.3 Press ENTER on SAP Easy Access.',
+            title: '1.3 Press ENTER on SAP Easy Access Press ENTER on SAP Easy Access.',
             iconClass: 'fa-keyboard-o',
             imageSrc: 'http://lorempixel.com/276/207/abstract/3',
             active: false,
@@ -291,25 +462,27 @@
     },
 
     methods: {
+      makeEditable () {
+        if (this.isActive) {
+          this.editable = true
+          Vue.nextTick(() => {
+            this.$refs.textarea.focus()
+          })
+        }
+      },
+
+      removeEditable () {
+        this.editable = false
+        this.task.title = this.editableTitle
+      },
+
       setActive () {
         this.$store.commit('setActiveTask', this.task)
       },
 
       openModal () {
         this.$store.commit('openModal', this.activeTaskUserAction.imageSrc)
-      },
-
-      initTasksHeight () {
-        let top = this.$el.getBoundingClientRect().top
-
-        this.$el.style.maxHeight = window.innerHeight - top - 20 + 'px'
-        this.$el.style.minHeight = window.innerHeight - top - 20 + 'px'
       }
-    },
-
-    mounted () {
-      window.addEventListener('resize', this.initTasksHeight)
-      this.initTasksHeight()
     },
 
     watch: {
@@ -327,11 +500,12 @@
     @import "../../../assets/sass/bulma-variables.sass";
 
     .task {
-        min-width: 300px;
+        width: 300px;
         display: inline-block;
-        padding: 0.25rem;
+        margin: 0.25rem;
         vertical-align: top;
         height: 100%;
+        position: relative;
 
         &.active {
             article {
@@ -339,10 +513,33 @@
             }
         }
 
+        textarea {
+            font-size: 1.75em;
+            padding: 4px 7px 4px .2rem;
+            position: absolute;
+            top: 3px;
+            left: 0.3rem;
+            width: 270px;
+            outline: none;
+            border: none;
+            background: $blue;
+            color: #fff;
+            opacity: 1;
+            z-index: 100;
+        }
+
+        .menu-wrapper {
+            position: absolute;
+            right: 0;
+            top: 7px;
+
+        }
+
         article {
             min-height: 100%;
             max-height: 100%;
-            position: relative;
+            position: absolute;
+            width: 100%;
 
             h2 {
                 cursor: move;
@@ -355,11 +552,13 @@
             .user-action-wrapper {
                 padding: 0 .5rem;
                 position: absolute;
-                top: 270px;
-                bottom: 0;
+                top: 280px;
+                bottom: 5px;
                 left: 0;
                 right: 0;
-                overflow: scroll;
+                width: 300px;
+                overflow-y: scroll;
+                overflow-x: visible;
             }
         }
 
