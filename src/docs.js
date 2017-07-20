@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App'
+import Docs from './components/Docs.vue'
 
 import {sync} from 'vuex-router-sync'
 import store from './store'
@@ -23,9 +23,9 @@ new Vue({
   el: '#app',
   router,
   store,
-  template: '<qfp-app/>',
+  template: '<qfp-docs/>',
   components: {
-    'qfp-app': App
+    'qfp-docs': Docs
   }
 })
 

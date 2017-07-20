@@ -1,6 +1,18 @@
 <template>
     <div class="documents">
-        <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
+        <v-client-table :data="tableData" :columns="columns" :options="options">
+            <template slot="copy" scope="props">
+                <div class="table-icon"><a class="fa fa-link"></a></div>
+            </template>
+
+            <template slot="download" scope="props">
+                <div class="table-icon"><a class="fa fa-download"></a></div>
+            </template>
+
+            <template slot="delete" scope="props">
+                <div class="table-icon"><a class="fa fa-trash"></a></div>
+            </template>
+        </v-client-table>
     </div>
 </template>
 
@@ -12,12 +24,13 @@
 
     data () {
       return {
-        columns: ['file_name', 'file_type', 'last_update', 'copy', 'download', 'delete'],
         options: {
+
           filterByColumn: true,
           filterable: ['file_name', 'file_type'],
           sortable: ['file_name', 'file_type', 'last_update'],
           dateColumns: ['last_update'],
+
           headings: {
             icon: '',
             file_name: 'File Name',
@@ -27,21 +40,7 @@
             download: 'Download',
             delete: 'Delete'
           },
-          templates: {
-            copy: function (h, row) {
-              return row.id
-            },
-            download: function (h, row) {
-              return h('i', {
-                attrs: {
-                  class: 'fa fa-copy'
-                }
-              }, [''])
-            },
-            delete: function (h, row) {
-              return '<a href=""><i class="fa fa-trash"></i></a>'
-            }
-          },
+
           listColumns: {
             file_type: [{
               id: 'docx',
@@ -55,6 +54,8 @@
             }]
           }
         },
+
+        columns: ['file_name', 'file_type', 'last_update', 'copy', 'download', 'delete'],
 
         tableData: [{
           id: '1',
@@ -87,3 +88,20 @@
   }
 
 </script>
+
+<style lang="scss">
+
+    .documents {
+        input.form-control {
+            font-size: 16px;
+            padding: 3px 5px;
+        }
+
+        div.table-icon {
+            width: 100%;
+            padding-left: 30px;
+        }
+
+    }
+
+</style>

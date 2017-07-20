@@ -20,8 +20,10 @@
   import Modal from './components/layout/Modal.vue'
 
   export default {
-    name: 'app',
-
+    name: 'App',
+    introduction: 'Parent component of whole application',
+    description: 'should be used only by the root vue instance',
+    token: '<qfp-app/>',
     components: {
       'qfp-navigation': Navigation,
       'qfp-sidebar': Sidebar,
