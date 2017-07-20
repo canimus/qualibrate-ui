@@ -8,11 +8,14 @@ import VueMoment from 'vue-moment'
 import lodash from 'lodash'
 import VueLodash from 'vue-lodash/dist/vue-lodash.min'
 import VueTruncate from 'vue-truncate-filter'
+import {ClientTable} from 'vue-bulma-tables-2'
 
 sync(store, router)
 Vue.use(VueMoment)
 Vue.use(VueLodash, lodash)
 Vue.use(VueTruncate)
+Vue.use(VueTruncate)
+Vue.use(ClientTable)
 
 Vue.config.productionTip = false
 

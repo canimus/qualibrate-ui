@@ -1,5 +1,5 @@
 <template>
-    <section class="section flow fixed-height">
+    <section class="section flow">
         <div class="top-buttons">
             <a class="button is-primary is-small">
             <span class="icon">
@@ -40,17 +40,21 @@
 
             <tab-pane label="Task Sequence">
 
-                    <draggable v-model="tasks" :options="{group:'tasks'}" class="task-sequence"
-                               :class="{ 'right-margin': !techDetailsOpened }">
-                        <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
-                    </draggable>
-                    <qfp-tech-details></qfp-tech-details>
+                <draggable v-model="tasks" :options="{group:'tasks'}" class="task-sequence"
+                           :class="{ 'right-margin': !techDetailsOpened }">
+                    <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
+                </draggable>
+                <qfp-tech-details></qfp-tech-details>
 
             </tab-pane>
 
-            <tab-pane label="Main Details">Main Details</tab-pane>
+            <tab-pane label="Main Details">
+                <qfp-main-details></qfp-main-details>
+            </tab-pane>
 
-            <tab-pane label="Documents">Document</tab-pane>
+            <tab-pane label="Documents">
+                <qfp-documents></qfp-documents>
+            </tab-pane>
         </tabs>
 
     </section>
@@ -61,6 +65,8 @@
   import {Tabs, TabPane} from 'vue-bulma-tabs'
   import Task from './Flow/Task.vue'
   import TechDetails from './Flow/TechDetails.vue'
+  import MainDetails from './Flow/MainDetails.vue'
+  import Documents from './Flow/Documents.vue'
   import Draggable from 'vuedraggable'
   import VbSwitch from 'vue-bulma-switch'
 
@@ -72,7 +78,9 @@
       Draggable,
       VbSwitch,
       'qfp-task': Task,
-      'qfp-tech-details': TechDetails
+      'qfp-tech-details': TechDetails,
+      'qfp-main-details': MainDetails,
+      'qfp-documents': Documents
     },
 
     computed: {
@@ -101,77 +109,76 @@
 
     @import "../../assets/sass/bulma-variables.sass";
 
-    .fixed-height {
+    .flow {
+
         height: 100%;
         overflow: hidden;
-    }
 
-    .top-buttons {
-        margin-bottom: 15px;
+        .top-buttons {
+            margin-bottom: 15px;
 
-        .icon i.fa {
-            font-size: 14px;
-        }
+            .icon i.fa {
+                font-size: 14px;
+            }
 
-        .tech-details-label {
-            display: flex;
-            align-items: center;
+            .tech-details-label {
+                display: flex;
+                align-items: center;
 
-            label.switch {
-                margin-left: 10px;
+                label.switch {
+                    margin-left: 10px;
+                }
+            }
+
+            .switch.is-success.checked {
+                background-color: $blue;
+                border-color: $blue;
             }
         }
 
-        .switch.is-success.checked {
-            background-color: $blue;
-            border-color: $blue;
+        h1.title {
+            margin-bottom: 10px !important;
         }
-    }
 
-    h1.title {
-        margin-bottom: 10px !important;
-    }
-
-    .task-sequence {
-        overflow-y: hidden;
-        overflow-x: scroll;
-        white-space: nowrap;
-        transition: margin-right 0.5s;
-        padding-bottom: 5px;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-
-        &.right-margin {
-            margin-right: 550px;
+        .task-sequence {
+            overflow-y: hidden;
+            overflow-x: scroll;
+            white-space: nowrap;
             transition: margin-right 0.5s;
-        }
-    }
+            padding-bottom: 5px;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
 
-    .flow .vue-bulma-tabs.main-tabs {
-
-        position: absolute;
-        top: 160px;
-        bottom: 1.5rem;
-        left: 1.5rem;
-        right: 1.5rem;
-
-        .tabs:not(:last-child) {
-            margin: 0.3rem;
-        }
-
-        .tab-content {
-            margin: 0;
+            &.right-margin {
+                margin-right: 550px;
+                transition: margin-right 0.5s;
+            }
         }
 
-    }
+        .vue-bulma-tabs.main-tabs {
 
-    article.box {
-        padding: 0.5rem;
-    }
+            position: absolute;
+            top: 160px;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
 
+            .tabs:not(:last-child) {
+                margin: 0.3rem;
+            }
+
+            .tab-content {
+                margin: 0;
+            }
+        }
+
+        article.box {
+            padding: 0.5rem;
+        }
+    }
 
 </style>
