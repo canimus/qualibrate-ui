@@ -52,6 +52,10 @@
 
             </tab-pane>
 
+            <tab-pane label="Testing Logs" :selected="tabSelected === 'tests'">
+                <qfp-tests></qfp-tests>
+            </tab-pane>
+
             <tab-pane label="Documents" :selected="tabSelected === 'documents'">
                 <qfp-documents></qfp-documents>
             </tab-pane>
@@ -67,6 +71,7 @@
   import TechDetails from './Flow/TechDetails.vue'
   import MainDetails from './Flow/MainDetails.vue'
   import Documents from './Flow/Documents.vue'
+  import Tests from './Flow/Tests.vue'
   import Draggable from 'vuedraggable'
   import VbSwitch from 'vue-bulma-switch'
 
@@ -80,6 +85,7 @@
       'qfp-task': Task,
       'qfp-tech-details': TechDetails,
       'qfp-main-details': MainDetails,
+      'qfp-tests': Tests,
       'qfp-documents': Documents
     },
 
@@ -89,7 +95,8 @@
         tabs: {
           0: 'main-details',
           1: 'tasks',
-          2: 'documents'
+          2: 'tests',
+          3: 'documents'
         }
       }
     },

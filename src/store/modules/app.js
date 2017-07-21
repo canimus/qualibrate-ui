@@ -18,6 +18,9 @@ export default {
       opened: false,
       imageSrc: ''
     },
+    executionReport: {
+      modalOpened: false
+    },
     activeTask: {},
     activeUserAction: {id: '0'},
     activeStep: {}
@@ -73,6 +76,14 @@ export default {
     closeModal (state) {
       state.modal.imageSrc = ''
       state.modal.opened = false
+    },
+
+    openExecutionReportModal (state) {
+      state.executionReport.modalOpened = true
+    },
+
+    closeExecutionReport (state) {
+      state.executionReport.modalOpened = false
     },
 
     updateTasks (state, tasks) {
