@@ -443,6 +443,7 @@
     },
 
     computed: {
+
       activeUserAction () {
         return this.$store.getters.activeUserAction
       },
@@ -477,6 +478,7 @@
       },
 
       setActive () {
+        this.$router.replace({name: 'FlowTabId', params: {tab: 'tasks', id: this.task.id}})
         this.$store.commit('setActiveTask', this.task)
       },
 

@@ -36,9 +36,13 @@
         </div>
         <h1 class="title">Flow</h1>
 
-        <tabs animation="slide" :only-fade="false" size="small" class="main-tabs">
+        <tabs animation="slide" :only-fade="false" size="small" class="main-tabs" @tab-selected="selectTab">
 
-            <tab-pane label="Task Sequence">
+            <tab-pane label="Main Details" :selected="tabSelected === 'main-details'">
+                <qfp-main-details></qfp-main-details>
+            </tab-pane>
+
+            <tab-pane label="Task Sequence" :selected="tabSelected === 'tasks'">
 
                 <draggable v-model="tasks" :options="{group:'tasks'}" class="task-sequence"
                            :class="{ 'right-margin': !techDetailsOpened }">
@@ -48,11 +52,7 @@
 
             </tab-pane>
 
-            <tab-pane label="Main Details">
-                <qfp-main-details></qfp-main-details>
-            </tab-pane>
-
-            <tab-pane label="Documents">
+            <tab-pane label="Documents" :selected="tabSelected === 'documents'">
                 <qfp-documents></qfp-documents>
             </tab-pane>
         </tabs>
@@ -83,14 +83,44 @@
       'qfp-documents': Documents
     },
 
+    data () {
+      return {
+        taskSequenceSelected: false,
+        tabs: {
+          0: 'main-details',
+          1: 'tasks',
+          2: 'documents'
+        }
+      }
+    },
+
+    created () {
+      if (this.$route.params.tab) {
+        this.tabSelected = this.$route.params.tab
+
+        if (this.$route.params.tab === 'tasks' && this.$route.params.id) {
+          const task = this.tasks.find(task => {
+            return task.id + '' === this.$route.params.id
+          })
+
+          this.$store.commit('setActiveTask', task)
+        }
+      }
+    },
+
     computed: {
 
       techDetailsOpened () {
         return this.$store.getters.techDetailsOpened
       },
 
-      tasks () {
-        return this.$store.state.app.tasks
+      tasks: {
+        get () {
+          return this.$store.state.app.tasks
+        },
+        set (tasks) {
+          this.$store.commit('updateTasks', tasks)
+        }
       },
 
       showTechDetail: {
@@ -100,6 +130,12 @@
         set (value) {
           this.$store.commit('toggleTechDetails')
         }
+      }
+    },
+
+    methods: {
+      selectTab (index) {
+        this.$router.replace({name: 'FlowTab', params: {tab: this.tabs[index]}})
       }
     }
   }

@@ -93,7 +93,7 @@
 
     .documents {
         input.form-control {
-            font-size: 16px;
+            font-size: 14px;
             padding: 3px 5px;
         }
 
@@ -102,6 +102,28 @@
             padding-left: 30px;
         }
 
+        .table {
+            .VueTables__sortable {
+                cursor: pointer;
+            }
+
+            th {
+                .icon {
+                    padding-left: 15px;
+                }
+            }
+
+            font-size: 14px;
+
+            a.fa {
+                font-size: 18px;
+                padding-top: 3px;
+            }
+        }
+
+        .select {
+            font-size: 14px;
+        }
     }
 
 </style>

@@ -75,6 +75,10 @@ export default {
       state.modal.opened = false
     },
 
+    updateTasks (state, tasks) {
+      state.tasks = tasks
+    },
+
     setActiveTask (state, task) {
       state.activeTask = task
     },
