@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Flow from '@/components/pages/Flow.vue'
 
 Vue.use(Router)
 
@@ -30,7 +31,17 @@ export default new Router({
     {
       path: '/flow',
       name: 'Flow',
-      component: require('@/components/pages/Flow.vue')
+      component: Flow
+    },
+    {
+      path: '/flow/:tab',
+      name: 'FlowTab',
+      component: Flow
+    },
+    {
+      path: '/flow/:tab/:id/',
+      name: 'FlowTabId',
+      component: Flow
     }
   ]
 })
