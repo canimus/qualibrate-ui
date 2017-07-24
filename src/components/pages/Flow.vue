@@ -1,39 +1,79 @@
 <template>
     <section class="section flow">
+        <div class="tags">
+            <span class="tag is-primary">
+                  JOHN SMITH <button class="delete is-small"></button>
+            </span>
+
+            <span class="tag is-warning">
+                  WAREHOUSE MANAGAMENT <button class="delete is-small"></button>
+            </span>
+
+            <span class="tag is-success">
+                  MARTIN RAZUS <button class="delete is-small"></button>
+            </span>
+
+            <span class="tag is-danger">
+                  TAG LABEL 1<button class="delete is-small"></button>
+            </span>
+
+            <span class="tag is-success">
+                  TAG LABEL 2<button class="delete is-small"></button>
+            </span>
+
+
+        </div>
+
         <div class="top-buttons">
-            <a class="button is-primary is-small">
-            <span class="icon">
-                <i class="fa fa-circle"></i>
-            </span>
-                <span>Record</span>
-            </a>
 
-            <a class="button is-primary is-small">
-            <span class="icon">
-                <i class="fa fa-plus"></i>
-            </span>
-                <span>Create task</span>
-            </a>
 
-            <a class="button is-primary is-small">
-            <span class="icon">
-                <i class="fa fa-refresh"></i>
-            </span>
-                <span>Refresh</span>
-            </a>
-
-            <a class="button is-primary is-small">
-            <span class="icon">
-                <i class="fa fa-user-md"></i>
-            </span>
-                <span>QFP Applications</span>
-            </a>
             <div class="is-pulled-right tech-details-label">
                 <span v-show="showTechDetail">Show technical details</span>
                 <span v-show="!showTechDetail">Hide technical details</span>
                 <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
+
+                <div class="flow-actions navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Flow Actions
+                    </a>
+
+                    <div class="navbar-dropdown">
+
+                        <a class="navbar-item">
+                        <span class="icon">
+                            <i class="fa fa-circle"></i>
+                        </span>
+                            <span>Record</span>
+                        </a>
+
+                        <a class="navbar-item">
+                        <span class="icon">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                            <span>Create task</span>
+                        </a>
+
+                        <a class="navbar-item">
+                        <span class="icon">
+                            <i class="fa fa-refresh"></i>
+                        </span>
+                            <span>Refresh</span>
+                        </a>
+
+                        <a class="navbar-item">
+                        <span class="icon">
+                            <i class="fa fa-user-md"></i>
+                        </span>
+                            <span>QFP Applications</span>
+                        </a>
+
+                    </div>
+                </div>
+
             </div>
         </div>
+
+
         <h1 class="title">Flow</h1>
 
         <tabs animation="slide" :only-fade="false" size="small" class="main-tabs" @tab-selected="selectTab">
@@ -162,6 +202,24 @@
 
             .icon i.fa {
                 font-size: 14px;
+            }
+
+            .flow-actions {
+                margin-left: 30px;
+                width: 180px;
+                background-color: #40C293;
+
+                .navbar-link {
+                    width: 180px;
+                    background-color: #40C293;
+                    color: #fff;
+
+                    &:after {
+                        border: 1px solid #fff;
+                        border-right: 0;
+                        border-top: 0;
+                    }
+                }
             }
 
             .tech-details-label {
