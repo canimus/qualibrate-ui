@@ -105,7 +105,7 @@
                 <div class="tree-wrapper">
                     <div class="tree">
                         <ul>
-                            <qfp-report-item v-for="task in tasks" :task="task" :key="task.id"></qfp-report-item>
+                            <qfp-report-item v-for="task in tasks" :item="task" :key="task.id" :level="0"></qfp-report-item>
                         </ul>
                     </div>
                 </div>
@@ -138,7 +138,11 @@
           statusSummary: 75
         },
 
-        tasks: this.$store.state.app.tasks
+        dataIterations: [
+          {id: 0, title: 'Iteration 1'},
+          {id: 1, title: 'Iteration 2'},
+          {id: 2, title: 'Iteration 3'}
+        ]
       }
     },
 
@@ -154,6 +158,20 @@
           complementStyle: {width: 100 - this.report.statusSummary + '%'},
           complementSummary: 100 - this.report.statusSummary
         }
+      },
+
+      tasks () {
+        let dataIterations = this.dataIterations.map((iteration) => {
+          iteration.children = this.$store.state.app.userActions
+          return iteration
+        })
+
+        let tasks = this.$store.state.app.tasks.map((task) => {
+          task.children = dataIterations
+          return task
+        })
+
+        return tasks
       }
     },
 
@@ -183,7 +201,7 @@
         .modal-content {
             width: calc(100% - 40px);
             max-width: 1440px;
-            height: calc(100vh - 100px);
+            height: calc(100vh - 60px);
             position: relative;
 
             nav {
