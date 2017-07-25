@@ -1,13 +1,11 @@
 <template>
     <div class="task" @click="setActive" :class="{active: isActive}">
         <article class="box">
-            <div class="content">
-                <h2 class="is-pulled-left" @click="makeEditable">{{ task.title | truncate(25) }}</h2>
-                <textarea v-if="editable" @blur="removeEditable" ref="textarea" v-model="editableTitle"></textarea>
-                <div class="menu-wrapper">
-                    <qfp-context-menu :items="menuItems"></qfp-context-menu>
-                </div>
-                <br/>
+
+            <h2 class="title is-4 is-pulled-left" @click="makeEditable">{{ task.title | truncate(25) }}</h2>
+            <textarea v-if="editable" @blur="removeEditable" ref="textarea" v-model="editableTitle"></textarea>
+            <div class="menu-wrapper">
+                <qfp-context-menu :items="menuItems"></qfp-context-menu>
             </div>
 
             <figure class="image is-4by3" @click="openModal">
@@ -16,9 +14,18 @@
 
             <draggable class="user-action-wrapper" v-model="userActions" :options="{group:'userActions'}">
                 <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
-                                 :userAction="userAction" @setTaskActive="setActive()">
+                                 :userAction="userAction" @setTaskActive="setActive()" @toggleMenu="toggleMenu">
                 </qfp-user-action>
             </draggable>
+
+            <div class="navbar-item child-context-menu" :class="{'is-active': showChildMenu}" :style="menuStyle" dragable="false">
+                <div class="navbar-dropdown" ref="childMenu" @blur="showChildMenu = false" tabindex="0">
+                    <a class="navbar-item" v-for="menuItem in childMenuItems" :key="menuItem.title"
+                       v-on:click.stop="closeChildMenu">
+                        <span class="icon"><i class="fa" :class="menuItem.iconClass"></i></span> {{menuItem.title}}
+                    </a>
+                </div>
+            </div>
 
         </article>
 
@@ -33,7 +40,6 @@
   import Vue from 'vue'
 
   export default {
-
     props: ['task'],
 
     components: {
@@ -438,7 +444,19 @@
           }
         ],
 
-        activeListUserAction: false
+        activeListUserAction: false,
+
+        showChildMenu: false,
+
+        childMenuItems: [
+          {title: 'Record Step', iconClass: 'fa-dot-circle-o', link: '#asdf'},
+          {title: 'Delete Step', iconClass: 'fa-trash', link: '#asdf'},
+          {title: 'Duplicate Step', iconClass: 'fa-copy', link: '#asdf'}
+        ],
+
+        menuStyle: {
+          top: '100px'
+        }
       }
     },
 
@@ -484,6 +502,20 @@
 
       openModal () {
         this.$store.commit('openModal', this.activeTaskUserAction.imageSrc)
+      },
+
+      toggleMenu (childTop) {
+        let top = childTop - this.$el.getBoundingClientRect().top
+        this.showChildMenu = true
+        this.menuStyle.top = top + 'px'
+
+        Vue.nextTick(() => {
+          this.$refs.childMenu.focus()
+        })
+      },
+
+      closeChildMenu () {
+        this.showChildMenu = false
       }
     },
 
@@ -538,13 +570,15 @@
         }
 
         article {
-            min-height: 100%;
-            max-height: 100%;
-            position: absolute;
+            position: relative;
+            display: flex;
+            flex-flow: column;
+            height: 100%;
             width: 100%;
 
-            h2 {
+            h2.title {
                 cursor: move;
+                margin-bottom: .5rem;
             }
 
             figure {
@@ -552,15 +586,21 @@
             }
 
             .user-action-wrapper {
-                padding: 0 .5rem;
-                position: absolute;
-                top: 280px;
-                bottom: 5px;
-                left: 0;
-                right: 0;
-                width: 300px;
-                overflow-y: scroll;
+                padding: .5rem 1px;
+                flex: 0 1 100%;
+                overflow: auto;
                 overflow-x: visible;
+                position: relative;
+            }
+
+            .child-context-menu {
+                position: absolute;
+                width: 180px;
+                left: 275px;
+
+                .navbar-dropdown {
+                    outline: none;
+                }
             }
         }
 

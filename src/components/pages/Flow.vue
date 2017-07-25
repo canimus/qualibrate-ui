@@ -1,80 +1,61 @@
 <template>
     <section class="section flow">
-        <div class="tags">
-            <span class="tag is-primary">
-                  JOHN SMITH <button class="delete is-small"></button>
-            </span>
 
-            <span class="tag is-warning">
-                  WAREHOUSE MANAGAMENT <button class="delete is-small"></button>
-            </span>
+        <div>
+            <div class="top-buttons">
 
-            <span class="tag is-success">
-                  MARTIN RAZUS <button class="delete is-small"></button>
-            </span>
+                <div class="is-pulled-right tech-details-label">
+                    <span v-show="showTechDetail">Show technical details</span>
+                    <span v-show="!showTechDetail">Hide technical details</span>
+                    <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
 
-            <span class="tag is-danger">
-                  TAG LABEL 1<button class="delete is-small"></button>
-            </span>
-
-            <span class="tag is-success">
-                  TAG LABEL 2<button class="delete is-small"></button>
-            </span>
-
-
-        </div>
-
-        <div class="top-buttons">
-
-
-            <div class="is-pulled-right tech-details-label">
-                <span v-show="showTechDetail">Show technical details</span>
-                <span v-show="!showTechDetail">Hide technical details</span>
-                <vb-switch type="success" checked v-model="showTechDetail"></vb-switch>
-
-                <div class="flow-actions navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Flow Actions
-                    </a>
-
-                    <div class="navbar-dropdown">
-
-                        <a class="navbar-item">
-                        <span class="icon">
-                            <i class="fa fa-circle"></i>
-                        </span>
-                            <span>Record</span>
+                    <div class="flow-actions navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Flow Actions
                         </a>
 
-                        <a class="navbar-item">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                            <span>Create task</span>
-                        </a>
+                        <div class="navbar-dropdown">
 
-                        <a class="navbar-item">
-                        <span class="icon">
-                            <i class="fa fa-refresh"></i>
-                        </span>
-                            <span>Refresh</span>
-                        </a>
+                            <a class="navbar-item">
+                            <span class="icon">
+                                <i class="fa fa-circle"></i>
+                            </span>
+                                <span>Record</span>
+                            </a>
 
-                        <a class="navbar-item">
-                        <span class="icon">
-                            <i class="fa fa-user-md"></i>
-                        </span>
-                            <span>QFP Applications</span>
-                        </a>
+                            <a class="navbar-item">
+                            <span class="icon">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                                <span>Create task</span>
+                            </a>
 
+                            <a class="navbar-item">
+                            <span class="icon">
+                                <i class="fa fa-refresh"></i>
+                            </span>
+                                <span>Refresh</span>
+                            </a>
+
+                            <a class="navbar-item">
+                            <span class="icon">
+                                <i class="fa fa-user-md"></i>
+                            </span>
+                                <span>QFP Applications</span>
+                            </a>
+
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+
+            <h1 class="title">Flow</h1>
         </div>
 
-
-        <h1 class="title">Flow</h1>
+        <div class="tags">
+            <qfp-tags></qfp-tags>
+        </div>
 
         <tabs animation="slide" :only-fade="false" size="small" class="main-tabs" @tab-selected="selectTab">
 
@@ -101,19 +82,22 @@
             </tab-pane>
         </tabs>
 
+
     </section>
 </template>
 
 <script>
 
   import {Tabs, TabPane} from 'vue-bulma-tabs'
+  import Draggable from 'vuedraggable'
+  import VbSwitch from 'vue-bulma-switch'
+
   import Task from './Flow/Task.vue'
   import TechDetails from './Flow/TechDetails.vue'
   import MainDetails from './Flow/MainDetails.vue'
   import Documents from './Flow/Documents.vue'
   import Tests from './Flow/Tests.vue'
-  import Draggable from 'vuedraggable'
-  import VbSwitch from 'vue-bulma-switch'
+  import Tags from './../elements/Tags.vue'
 
   export default {
     name: 'main',
@@ -126,7 +110,8 @@
       'qfp-tech-details': TechDetails,
       'qfp-main-details': MainDetails,
       'qfp-tests': Tests,
-      'qfp-documents': Documents
+      'qfp-documents': Documents,
+      'qfp-tags': Tags
     },
 
     data () {
@@ -194,8 +179,9 @@
 
     .flow {
 
+        display: flex;
+        flex-flow: column;
         height: 100%;
-        overflow: hidden;
 
         .top-buttons {
             margin-bottom: 15px;
@@ -238,7 +224,15 @@
         }
 
         h1.title {
-            margin-bottom: 10px !important;
+            margin-top: -10px;
+            margin-bottom: 15px !important;
+        }
+
+        .tags {
+            padding: 10px;
+            border: 1px solid #dbdbdb;
+            background: #E1E7EC;
+            margin-bottom: 5px;
         }
 
         .task-sequence {
@@ -262,11 +256,8 @@
 
         .vue-bulma-tabs.main-tabs {
 
-            position: absolute;
-            top: 160px;
-            bottom: 1.5rem;
-            left: 1.5rem;
-            right: 1.5rem;
+            position: relative;
+            flex: 0 1 100%;
 
             .tabs:not(:last-child) {
                 margin: 0.3rem;
