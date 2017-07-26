@@ -8,7 +8,6 @@
             <router-view></router-view>
         </section>
         <qfp-modal></qfp-modal>
-        <qfp-execution-report-modal></qfp-execution-report-modal>
 
     </div>
 
@@ -21,7 +20,6 @@
   import Navigation from './components/layout/Navigation.vue'
   import Sidebar from './components/layout/Sidebar.vue'
   import Modal from './components/layout/Modal.vue'
-  import ExecutionReportModal from './components/pages/Flow/Tests/ExecutionReportModal.vue'
 
   export default {
     name: 'App',
@@ -31,8 +29,7 @@
     components: {
       'qfp-navigation': Navigation,
       'qfp-sidebar': Sidebar,
-      'qfp-modal': Modal,
-      'qfp-execution-report-modal': ExecutionReportModal
+      'qfp-modal': Modal
     },
 
     computed: mapGetters({

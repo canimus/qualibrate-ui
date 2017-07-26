@@ -2,31 +2,24 @@
     <div class="task" @click="setActive" :class="{active: isActive}">
         <article class="box">
 
-            <h2 class="title is-4 is-pulled-left" @click="makeEditable">{{ task.title | truncate(25) }}</h2>
+            <h2 class="title is-4 is-pulled-left drag-handle" @click="makeEditable">{{ task.title | truncate(25) }}</h2>
             <textarea v-if="editable" @blur="removeEditable" ref="textarea" v-model="editableTitle"></textarea>
             <div class="menu-wrapper">
-                <qfp-context-menu :items="menuItems"></qfp-context-menu>
+                <qfp-context-menu :items="menuItems" :show-trigger-icon="true"></qfp-context-menu>
             </div>
 
             <figure class="image is-4by3" @click="openModal">
                 <img :src="activeTaskUserAction.imageSrc">
             </figure>
 
-            <draggable class="user-action-wrapper" v-model="userActions" :options="{group:'userActions'}">
+            <draggable class="user-action-wrapper" v-model="userActions" :options="sortableOptions">
                 <qfp-user-action v-for="userAction in userActions" :key="userAction.title"
-                                 :userAction="userAction" @setTaskActive="setActive()" @toggleMenu="toggleMenu">
+                                 :userAction="userAction" @setTaskActive="setActive()" @openChildMenu="openChildMenu">
                 </qfp-user-action>
             </draggable>
 
-            <div class="navbar-item child-context-menu" :class="{'is-active': showChildMenu}" :style="menuStyle" dragable="false">
-                <div class="navbar-dropdown" ref="childMenu" @blur="showChildMenu = false" tabindex="0">
-                    <a class="navbar-item" v-for="menuItem in childMenuItems" :key="menuItem.title"
-                       v-on:click.stop="closeChildMenu">
-                        <span class="icon"><i class="fa" :class="menuItem.iconClass"></i></span> {{menuItem.title}}
-                    </a>
-                </div>
-            </div>
-
+            <qfp-context-menu :items="childMenuItems" :menu-style="childMenuStyle"
+                              :open-trigger="triggerChildMenu"></qfp-context-menu>
         </article>
 
     </div>
@@ -56,6 +49,10 @@
           {title: 'Delete Task', iconClass: 'fa-trash', link: '#asdf'},
           {title: 'Insert User Action', iconClass: 'fa-plus', link: '#asdf'}
         ],
+
+        sortableOptions: {
+          group: 'userActions'
+        },
 
         userActions: [
           {
@@ -446,7 +443,7 @@
 
         activeListUserAction: false,
 
-        showChildMenu: false,
+        childMenuId: 0,
 
         childMenuItems: [
           {title: 'Record Step', iconClass: 'fa-dot-circle-o', link: '#asdf'},
@@ -454,9 +451,11 @@
           {title: 'Duplicate Step', iconClass: 'fa-copy', link: '#asdf'}
         ],
 
-        menuStyle: {
+        childMenuStyle: {
           top: '100px'
-        }
+        },
+
+        triggerChildMenu: 0
       }
     },
 
@@ -504,18 +503,11 @@
         this.$store.commit('openModal', this.activeTaskUserAction.imageSrc)
       },
 
-      toggleMenu (childTop) {
+      openChildMenu (childTop, childMenuId) {
         let top = childTop - this.$el.getBoundingClientRect().top
-        this.showChildMenu = true
-        this.menuStyle.top = top + 'px'
-
-        Vue.nextTick(() => {
-          this.$refs.childMenu.focus()
-        })
-      },
-
-      closeChildMenu () {
-        this.showChildMenu = false
+        this.childMenuStyle.top = top + 'px'
+        this.childMenuId = childMenuId
+        this.triggerChildMenu++
       }
     },
 
@@ -527,6 +519,7 @@
       }
     }
   }
+
 </script>
 
 <style lang="scss">
@@ -597,10 +590,6 @@
                 position: absolute;
                 width: 180px;
                 left: 275px;
-
-                .navbar-dropdown {
-                    outline: none;
-                }
             }
         }
 

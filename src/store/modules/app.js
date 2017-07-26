@@ -1,14 +1,15 @@
 import tasks from './../tmpData/tasks.js'
 import userActions from './../tmpData/userActions.js'
 import userActionsOptions from './../data/userActionsOptions.js'
-import tags from './../tmpData/tags.js'
+import tagsGroups from './../tmpData/tagsGroups.js'
+import _ from 'lodash'
 
 export default {
   state: {
     tasks,
     userActions,
     userActionsOptions,
-    tags,
+    tagsGroups,
 
     sidebar: {
       opened: true
@@ -16,12 +17,10 @@ export default {
     techDetails: {
       opened: false
     },
+    taskEditorOpened: true,
     modal: {
       opened: false,
       imageSrc: ''
-    },
-    executionReport: {
-      modalOpened: false
     },
     activeTask: {},
     activeUserAction: {id: '0'},
@@ -52,7 +51,6 @@ export default {
     activeStep (state) {
       return state.activeStep
     }
-
   },
 
   mutations: {
@@ -70,6 +68,10 @@ export default {
       }
     },
 
+    toggleTagsEditor (state) {
+      state.taskEditorOpened = !state.taskEditorOpened
+    },
+
     openModal (state, imageSrc) {
       state.modal.imageSrc = imageSrc
       state.modal.opened = true
@@ -78,14 +80,6 @@ export default {
     closeModal (state) {
       state.modal.imageSrc = ''
       state.modal.opened = false
-    },
-
-    openExecutionReportModal (state) {
-      state.executionReport.modalOpened = true
-    },
-
-    closeExecutionReport (state) {
-      state.executionReport.modalOpened = false
     },
 
     updateTasks (state, tasks) {
@@ -105,8 +99,8 @@ export default {
     },
 
     removeTag (state, tagId) {
-      state.tags = state.tags.filter(tag => {
-        return tag.id !== tagId
+      state.tagsGroups.selected = _.remove(state.tagsGroups.selected, (selectedId) => {
+        return selectedId !== tagId
       })
     }
   }

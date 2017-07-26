@@ -5,15 +5,13 @@
         </span>
 
         <span class="user-action-title" @click="setEditable">
-            {{ userAction.title | truncate(40) }}
+            {{ userAction.title | truncate(36) }}
         </span>
 
         <textarea v-if="editable" v-model="editableTitle" @blur="removeEditable" ref="textarea"></textarea>
 
-        <div class="navbar-item context-action-menu"
-             :class="{'is-active': isMenuOpened}">
-
-            <a @click="toggleMenu">
+        <div class="navbar-item context-action-menu">
+            <a @click="openMenu">
                 <i class="fa fa-ellipsis-v"></i>
             </a>
 
@@ -42,8 +40,7 @@
           {title: 'Delete Step', iconClass: 'fa-trash', link: '#asdf'},
           {title: 'Duplicate Step', iconClass: 'fa-copy', link: '#asdf'}
         ],
-        editable: false,
-        isMenuOpened: false
+        editable: false
       }
     },
 
@@ -79,11 +76,9 @@
         }
       },
 
-      toggleMenu () {
-        this.isMenuOpened = !this.isMenuOpened
-
+      openMenu () {
         let top = this.$el.getBoundingClientRect().top
-        this.$emit('toggleMenu', top)
+        this.$emit('openChildMenu', top, this.userAction.id)
       }
     }
   }

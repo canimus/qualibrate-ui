@@ -9,14 +9,24 @@
                 </div>
             </template>
         </v-client-table>
+
+        <div class="execution-report" v-if="showExecutionReport">
+            <qfp-execution-report @close="closeReport"></qfp-execution-report>
+        </div>
+
     </div>
 </template>
 
 <script>
 
   import moment from 'moment'
+  import ExecutionReport from './Tests/ExecutionReport.vue'
 
   export default {
+
+    components: {
+      'qfp-execution-report': ExecutionReport
+    },
 
     data () {
       return {
@@ -39,6 +49,8 @@
           }
         },
         columns: ['executed_by', 'start_date', 'end_date', 'status'],
+
+        showExecutionReport: false,
 
         tableData: [{
           id: '1',
@@ -70,9 +82,13 @@
 
     methods: {
 
+      closeReport () {
+        this.showExecutionReport = false
+      },
+
       rowClick (clickedRow) {
         if (clickedRow.row.active) {
-          this.$store.commit('openExecutionReportModal')
+          this.showExecutionReport = true
         } else {
           this.tableData = this.tableData.map(row => {
             if (row.id === clickedRow.row.id) {
@@ -149,6 +165,14 @@
                 font-size: 18px;
                 padding-top: 3px;
             }
+        }
+
+        .execution-report {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0
         }
     }
 

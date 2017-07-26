@@ -65,7 +65,7 @@
 
             <tab-pane label="Task Sequence" :selected="tabSelected === 'tasks'">
 
-                <draggable v-model="tasks" :options="{group:'tasks'}" class="task-sequence"
+                <draggable v-model="tasks" :options="{group:'tasks', filter: '.navbar-dropdown'}" class="task-sequence"
                            :class="{ 'right-margin': !techDetailsOpened }">
                     <qfp-task v-for="task in tasks" :key="task.title" :task="task"></qfp-task>
                 </draggable>
@@ -116,7 +116,7 @@
 
     data () {
       return {
-        taskSequenceSelected: false,
+        tabSelected: '',
         tabs: {
           0: 'main-details',
           1: 'tasks',
