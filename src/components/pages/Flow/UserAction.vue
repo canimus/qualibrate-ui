@@ -4,12 +4,20 @@
             <i class="is-pulled-left fa fa-small" :class="userAction.iconClass"></i>
         </span>
 
-        {{ userAction.title | truncate(40) }}
+        <span class="user-action-title" @click="setEditable">
+            {{ userAction.title | truncate(40) }}
+        </span>
 
         <textarea v-if="editable" v-model="editableTitle" @blur="removeEditable" ref="textarea"></textarea>
 
-        <qfp-context-menu :items="menuItems"></qfp-context-menu>
+        <div class="navbar-item context-action-menu"
+             :class="{'is-active': isMenuOpened}">
 
+            <a @click="toggleMenu">
+                <i class="fa fa-ellipsis-v"></i>
+            </a>
+
+        </div>
     </div>
 </template>
 
@@ -34,7 +42,8 @@
           {title: 'Delete Step', iconClass: 'fa-trash', link: '#asdf'},
           {title: 'Duplicate Step', iconClass: 'fa-copy', link: '#asdf'}
         ],
-        editable: false
+        editable: false,
+        isMenuOpened: false
       }
     },
 
@@ -50,22 +59,31 @@
         this.userAction.title = this.editableTitle
       },
 
-      setActive () {
+      setEditable () {
         if (this.isActive) {
           this.editable = true
           Vue.nextTick(() => {
             this.$refs.textarea.focus()
           })
-        } else {
-          this.$emit('setTaskActive')
-          this.$store.commit('setActiveUserAction', this.userAction)
-
-          if (this.userAction.steps) {
-            this.$store.commit('setActiveStep', this.userAction.steps[0])
-          } else {
-            this.$store.commit('setActiveStep', {})
-          }
         }
+      },
+
+      setActive () {
+        this.$emit('setTaskActive')
+        this.$store.commit('setActiveUserAction', this.userAction)
+
+        if (this.userAction.steps) {
+          this.$store.commit('setActiveStep', this.userAction.steps[0])
+        } else {
+          this.$store.commit('setActiveStep', {})
+        }
+      },
+
+      toggleMenu () {
+        this.isMenuOpened = !this.isMenuOpened
+
+        let top = this.$el.getBoundingClientRect().top
+        this.$emit('toggleMenu', top)
       }
     }
   }
@@ -109,7 +127,7 @@
             position: absolute;
             top: 3px;
             left: 26px;
-            width: 240px;
+            width: 230px;
             outline: none;
             border: none;
             background: $blue;
@@ -125,6 +143,13 @@
 
         i.fa-small {
             font-size: 12px;
+        }
+
+        .context-action-menu {
+            padding: 0;
+            position: absolute;
+            top: 5px;
+            right: 10px;
         }
 
     }

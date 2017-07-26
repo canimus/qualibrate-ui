@@ -1,12 +1,14 @@
 import tasks from './../tmpData/tasks.js'
 import userActions from './../tmpData/userActions.js'
 import userActionsOptions from './../data/userActionsOptions.js'
+import tags from './../tmpData/tags.js'
 
 export default {
   state: {
     tasks,
     userActions,
     userActionsOptions,
+    tags,
 
     sidebar: {
       opened: true
@@ -100,7 +102,12 @@ export default {
 
     setActiveStep (state, step) {
       state.activeStep = step
-    }
+    },
 
+    removeTag (state, tagId) {
+      state.tags = state.tags.filter(tag => {
+        return tag.id !== tagId
+      })
+    }
   }
 }
