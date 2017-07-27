@@ -1,5 +1,15 @@
 <template>
     <div class="tests">
+
+        <!--<nav class="breadcrumb">-->
+            <!--<ul>-->
+                <!--<li><a>Bulma</a></li>-->
+                <!--<li><a>Documentation</a></li>-->
+                <!--<li><a>Components</a></li>-->
+                <!--<li class="is-active"><a>Breadcrumb</a></li>-->
+            <!--</ul>-->
+        <!--</nav>-->
+
         <v-client-table :data="tableData" :columns="columns" :options="options" @row-click="rowClick">
             <template slot="status" scope="props">
                 <div class="status">
@@ -8,11 +18,24 @@
                     {{ props.row.status }}
                 </div>
             </template>
+
+            <template slot="detail" scope="props">
+                <div>
+                    <button class="button is-primary is-inverted is-small detail" @click="showExecutionReport = true"> detail
+                        <span class="icon is-small">
+                            <i class="fa fa-arrow-right"></i>
+                        </span>
+                    </button>
+                </div>
+            </template>
+
         </v-client-table>
 
-        <div class="execution-report" v-if="showExecutionReport">
-            <qfp-execution-report @close="closeReport"></qfp-execution-report>
-        </div>
+        <transition name="slide">
+            <div class="execution-report" v-if="showExecutionReport">
+                <qfp-execution-report @close="closeReport"></qfp-execution-report>
+            </div>
+        </transition>
 
     </div>
 </template>
@@ -40,7 +63,8 @@
             executed_by: 'Executed By',
             start_date: 'Start Date',
             end_date: 'End Date',
-            status: 'Status'
+            status: 'Status',
+            detail: 'Show Detail'
           },
           rowClassCallback: (row) => {
             if (row.active) {
@@ -48,7 +72,8 @@
             }
           }
         },
-        columns: ['executed_by', 'start_date', 'end_date', 'status'],
+
+        columns: ['executed_by', 'start_date', 'end_date', 'status', 'detail'],
 
         showExecutionReport: false,
 
@@ -114,6 +139,15 @@
 
     @import "../../../assets/sass/bulma-variables.sass";
 
+    .slide-enter-active, .slide-leave-active {
+        transition: margin-left .5s;
+    }
+
+    .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+        margin-left: 100%;
+    }
+
     .tests {
         input.form-control {
             font-size: 14px;
@@ -165,14 +199,20 @@
                 font-size: 18px;
                 padding-top: 3px;
             }
+
+            .detail {
+                background-color: #fff;
+                span.icon {
+                    margin-left: 20px;
+                }
+            }
         }
 
         .execution-report {
             position: absolute;
             top: 0;
-            left: 0;
             bottom: 0;
-            right: 0
+            width: 100%;
         }
     }
 

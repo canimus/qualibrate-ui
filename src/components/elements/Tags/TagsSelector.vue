@@ -45,6 +45,7 @@
 
       close () {
         this.isOpened = false
+        this.term = ''
       },
 
       selectTag (tagId) {
@@ -101,14 +102,14 @@
             right: 0;
             top: 0;
             padding: 10px;
-            width: 250px;
+            width: 230px;
             height: 200px;
             box-shadow: 0 0 5px rgba(10, 10, 10, 0.5);
             z-index: 100;
             outline: none;
 
             .control {
-                width: 230px;
+                width: 210px;
             }
 
             .tags-selector-wrapper {

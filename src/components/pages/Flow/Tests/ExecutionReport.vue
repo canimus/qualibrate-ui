@@ -9,10 +9,10 @@
                 <div class="column is-2">
                     <label>Pass Rate (Trend)</label>
                     <span>
-                                {{ report.rate }}
-                                <i class="fa fa-check-circle" v-if="report.status === 'passed'"></i>
-                                <i class="fa fa-times-circle" v-if="report.status === 'failed'"></i>
-                            </span>
+                        {{ report.rate }}
+                        <i class="fa fa-check-circle" v-if="report.status === 'passed'"></i>
+                        <i class="fa fa-times-circle" v-if="report.status === 'failed'"></i>
+                    </span>
                 </div>
                 <div class="column is-2">
                     <label>Total Elapsed Time</label>
@@ -35,10 +35,10 @@
                         </a>
 
                         <a class="back button is-primary is-small" @click="close">
-                            <span class="icon is-small">
-                              <i class="fa fa-arrow-left"></i>
-                            </span>
                             <span>BACK</span>
+                            <span class="icon is-small">
+                              <i class="fa fa-arrow-right"></i>
+                            </span>
                         </a>
 
                     </div>
@@ -82,7 +82,6 @@
                 </div>
             </div>
         </div>
-        <hr/>
 
         <!--<table>-->
         <!--<thead>-->
@@ -188,6 +187,8 @@
 
     .section.execution-report {
         height: 100%;
+        background-color: #fff;
+        border: 1px solid #dbdbdb;
 
         .report-data {
             .column {
@@ -299,12 +300,13 @@
 
         .tree-wrapper {
             position: absolute;
-            top: 280px;
-            left: 2.2rem;
+            top: 210px;
+            left: 1.5rem;
             right: 1.5rem;
             bottom: 20px;
             overflow: scroll;
-
+            padding-left: 0.7rem;
+            bordeR: 1px solid #dbdbdb;
         }
 
     }
