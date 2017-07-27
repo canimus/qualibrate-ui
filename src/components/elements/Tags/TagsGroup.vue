@@ -1,10 +1,12 @@
 <template>
     <div class="tags-group">
-        <h3 clas="title is-3">{{ group.title }}</h3>
+
+        <h3 clas="title is-3 is-pulled-left">{{ group.title }}</h3>
+        <qfp-tags-selector :group="group"></qfp-tags-selector>
+
         <hr/>
         <div class="tags-selector-holder">
-            <qfp-tag v-for="tag in selected" :key="tag.id" :tag="tag"></qfp-tag>
-            <qfp-tags-selector :tags-group="group"></qfp-tags-selector>
+            <qfp-tag v-for="tag in selectedTags" :key="tag.id" :tag="tag" :removable="true"></qfp-tag>
         </div>
     </div>
 </template>
@@ -16,7 +18,7 @@
 
   export default {
 
-    props: ['group', 'selected-tags'],
+    props: ['group'],
 
     components: {
       'qfp-tag': Tag,
@@ -24,9 +26,9 @@
     },
 
     computed: {
-      selected () {
-        let selectedTags = this.group.allTags.filter(tag => {
-          if (this._.indexOf(this.selectedTags, tag.id)) {
+      selectedTags () {
+        let selectedTags = this.$store.getters.selectedTags.filter(tag => {
+          if (tag.group === this.group.id) {
             return tag
           }
         })
@@ -41,13 +43,15 @@
 
     .tags-group {
 
+        position: relative;
+
         h3 {
             margin-bottom: 5px;
             font-size: 1rem;
         }
 
         hr {
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .tags-selector-holder {

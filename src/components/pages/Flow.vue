@@ -229,7 +229,7 @@
         }
 
         .tags {
-            padding: 10px;
+            padding: 5px 10px 7px 10px;
             border: 1px solid #dbdbdb;
             background: #E1E7EC;
             margin-bottom: 5px;

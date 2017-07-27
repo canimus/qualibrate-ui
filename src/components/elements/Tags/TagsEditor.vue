@@ -1,10 +1,14 @@
 <template>
     <div class="tags-editor" :class="{ opened: tagsEditorOpened }">
+        <a class="done button is-primary is-small" @click="done">
+            <span>DONE</span>
+        </a>
         <div class="content">
             <tabs animation="slide" :only-fade="false" size="small">
 
                 <tab-pane label="Edit" icon="fa fa-graduation-cap">
-                    <qfp-tags-group v-for="group in tagsGroups.groups" :key="group.title" :group="group" :selected-tags="tagsGroups.selected"></qfp-tags-group>
+                    <qfp-tags-group v-for="group in tagsGroups.groups" :key="group.title"
+                                    :group="group"></qfp-tags-group>
                 </tab-pane>
 
                 <tab-pane label="Customize" icon="fa fa-gears">
@@ -37,6 +41,12 @@
       tagsEditorOpened () {
         return this.$store.state.app.taskEditorOpened
       }
+    },
+
+    methods: {
+      done () {
+        this.$store.commit('toggleTagsEditor')
+      }
     }
   }
 </script>
@@ -47,14 +57,20 @@
 
     .tags-editor {
         position: absolute;
-        top: 100%;
-        right: 0;
-        margin-right: -750px;
+        top: 0;
+        right: -790px;
         width: 750px;
         height: auto;
         z-index: 100;
         background-color: $background-grey;
-        transition: margin-right 0.5s;
+        transition: right 0.5s;
+
+        .done {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 100;
+        }
 
         > div {
             height: 100%;
@@ -62,11 +78,16 @@
 
         .vue-bulma-tabs {
             height: 100%;
+
+            .tab-content {
+                overflow: visible;
+            }
+
         }
 
         &.opened {
-            margin-right: 0;
-            transition: margin-right 0.5s;
+            right: 0;
+            transition: right 0.5s;
             box-shadow: 0 5px 10px rgba(10, 10, 10, 0.5);
         }
 

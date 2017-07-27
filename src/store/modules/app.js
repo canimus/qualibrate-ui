@@ -17,7 +17,7 @@ export default {
     techDetails: {
       opened: false
     },
-    taskEditorOpened: true,
+    taskEditorOpened: false,
     modal: {
       opened: false,
       imageSrc: ''
@@ -50,6 +50,26 @@ export default {
 
     activeStep (state) {
       return state.activeStep
+    },
+
+    selectedTags (state) {
+      let selectedTags = state.tagsGroups.allTags.filter(tag => {
+        if (_.indexOf(state.tagsGroups.selected, tag.id) > 0) {
+          return tag
+        }
+      })
+
+      return selectedTags
+    },
+
+    unselectedTags (state) {
+      let unselectedTags = state.tagsGroups.allTags.filter(tag => {
+        if (_.indexOf(state.tagsGroups.selected, tag.id) === -1) {
+          return tag
+        }
+      })
+
+      return unselectedTags
     }
   },
 
@@ -102,6 +122,10 @@ export default {
       state.tagsGroups.selected = _.remove(state.tagsGroups.selected, (selectedId) => {
         return selectedId !== tagId
       })
+    },
+
+    selectTag (state, tagId) {
+      state.tagsGroups.selected.push(tagId)
     }
   }
 }
