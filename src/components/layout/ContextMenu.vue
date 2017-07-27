@@ -1,27 +1,30 @@
 <template>
     <div class="navbar-item context-menu is-pulled-right"
-         :class="{'is-active': isMenuOpened}">
+         :class="{'is-active': isMenuOpened}" :style="menuStyle">
 
-        <a v-on-clickaway="away" @click="isMenuOpened = !isMenuOpened">
+        <a v-if="showTriggerIcon" @click="open">
             <i class="fa fa-ellipsis-v"></i>
         </a>
 
-        <div class="navbar-dropdown">
-            <a class="navbar-item" v-for="item in items" :key="item.title" :src="item.link">
-                <span class="icon"><i class="fa" :class="item.iconClass"></i></span> {{item.title}}
+        <div class="navbar-dropdown" ref="menu" @blur="close" tabindex="0">
+
+            <a class="navbar-item" v-for="item in items" :key="item.title" :src="item.link" @click="close">
+                <span class="icon"><i class="fa" :class="item.iconClass"></i></span>
+                {{item.title}}
             </a>
+
         </div>
     </div>
+
 </template>
 
 <script>
 
-  import {mixin as clickaway} from 'vue-clickaway'
+  import Vue from 'vue'
 
   export default {
 
-    mixins: [clickaway],
-    props: ['items'],
+    props: ['items', 'show-trigger-icon', 'menu-style', 'open-trigger'],
 
     data () {
       return {
@@ -30,18 +33,36 @@
     },
 
     methods: {
-      away () {
+
+      open () {
+        this.isMenuOpened = true
+        Vue.nextTick(() => {
+          this.$refs.menu.focus()
+        })
+      },
+
+      close () {
         this.isMenuOpened = false
       }
+    },
 
+    watch: {
+      openTrigger (value) {
+        if (value === 0) {
+          this.close()
+        } else {
+          this.open()
+        }
+      }
     }
   }
+
 </script>
 
 <style lang="scss">
     .context-menu {
         padding: 0;
-        position: relative;
+        position: absolute;
         top: 5px;
         right: 10px;
 
@@ -50,6 +71,7 @@
             border-top: none;
             border-radius: 3px;
             box-shadow: 0 5px 10px rgba(10, 10, 10, 0.5);
+            outline: none;
         }
     }
 </style>
