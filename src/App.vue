@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-
         <qfp-navigation></qfp-navigation>
         <qfp-sidebar></qfp-sidebar>
 

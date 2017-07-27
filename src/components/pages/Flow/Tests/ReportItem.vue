@@ -119,8 +119,6 @@
             padding: 0 20px;
             margin: 0 0 0 45px;
 
-
-
             &.list-0 {
                 box-shadow: 0 0 10px rgba(10, 10, 10, 0.5);
                 margin: 0 0.5rem 0 25px;
@@ -135,7 +133,7 @@
                 margin-top: 0;
                 max-height: 1000px;
                 padding: 10px 20px;
-                transition: all 0.6s;
+                transition: all 0.3s;
             }
 
             li {
