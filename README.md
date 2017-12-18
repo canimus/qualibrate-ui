@@ -2,6 +2,21 @@
 
 > qualibrate ui
 
+## Docker image
+``` bash
+# Container with the required runtime libraries for the UI project
+docker pull node:9.3.0
+
+# Cloning the repo
+git clone https://github.com/canimus/qualibrate-ui.git
+
+# Moving to root directory
+cd qualibrate-ui/
+
+# Running the UI Project in the container
+docker run -it --rm -v $PWD:/tmp -p 8080:8080 -w /tmp node:9.3.0 bash -c "npm install && npm run dev"
+```
+
 ## Build Setup
 
 ``` bash
